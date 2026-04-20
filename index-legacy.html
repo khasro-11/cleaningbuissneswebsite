@@ -1,0 +1,1107 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CleanPro – Professionelle Reinigungsdienstleistungen</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            teal: {
+              50: '#f0f9fa',
+              100: '#d9f1f4',
+              200: '#b3e3e9',
+              300: '#7dccd6',
+              400: '#46aebb',
+              500: '#2a939f',
+              600: '#1e7a86',
+              700: '#19636e',
+              800: '#18515c',
+              900: '#0d3a42',
+              950: '#0a2a30',
+            },
+            gold: {
+              300: '#f0d080',
+              400: '#e8bc54',
+              500: '#d4a030',
+              600: '#b8861e',
+            },
+          },
+          fontFamily: {
+            display: ['"Playfair Display"', 'Georgia', 'serif'],
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+          letterSpacing: {
+            tighter2: '-0.03em',
+          },
+          lineHeight: {
+            relaxed2: '1.7',
+          },
+        },
+      },
+    }
+  </script>
+  <style>
+    /* Grain texture overlay */
+    .grain::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 1;
+    }
+    .grain > * { position: relative; z-index: 2; }
+
+    /* Smooth scroll */
+    html { scroll-behavior: smooth; }
+
+    /* Spring easing */
+    .spring { transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.25s ease; }
+
+    /* Nav glass */
+    .nav-glass {
+      background: rgba(13, 58, 66, 0.85);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    /* Card elevated */
+    .card-elevated {
+      background: #ffffff;
+      box-shadow:
+        0 1px 2px rgba(13,58,66,0.04),
+        0 4px 12px rgba(13,58,66,0.08),
+        0 16px 40px rgba(13,58,66,0.06);
+      transition: transform 0.3s cubic-bezier(0.34,1.2,0.64,1), box-shadow 0.3s ease;
+    }
+    .card-elevated:hover {
+      transform: translateY(-6px);
+      box-shadow:
+        0 2px 4px rgba(13,58,66,0.06),
+        0 8px 24px rgba(13,58,66,0.12),
+        0 32px 64px rgba(13,58,66,0.10);
+    }
+
+    /* CTA button */
+    .btn-primary {
+      background: linear-gradient(135deg, #d4a030 0%, #e8bc54 60%, #d4a030 100%);
+      box-shadow: 0 4px 16px rgba(212,160,48,0.35), 0 1px 3px rgba(0,0,0,0.2);
+      transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.25s ease, opacity 0.2s ease;
+    }
+    .btn-primary:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 8px 28px rgba(212,160,48,0.45), 0 2px 6px rgba(0,0,0,0.2);
+    }
+    .btn-primary:active { transform: translateY(0) scale(0.98); }
+    .btn-primary:focus-visible {
+      outline: 3px solid #f0d080;
+      outline-offset: 3px;
+    }
+
+    .btn-outline {
+      border: 2px solid rgba(255,255,255,0.55);
+      color: white;
+      transition: background 0.2s ease, border-color 0.2s ease, transform 0.25s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .btn-outline:hover {
+      background: rgba(255,255,255,0.12);
+      border-color: white;
+      transform: translateY(-1px);
+    }
+    .btn-outline:active { transform: translateY(0); }
+    .btn-outline:focus-visible { outline: 3px solid #f0d080; outline-offset: 3px; }
+
+    /* Service icon ring */
+    .icon-ring {
+      background: linear-gradient(135deg, #e8f7f9, #c5eaf0);
+      box-shadow: 0 2px 8px rgba(13,58,66,0.12), inset 0 1px 2px rgba(255,255,255,0.8);
+    }
+
+    /* Testimonial card */
+    .testimonial-card {
+      background: linear-gradient(145deg, #ffffff, #f8fafb);
+      box-shadow:
+        0 1px 2px rgba(13,58,66,0.03),
+        0 6px 20px rgba(13,58,66,0.07),
+        0 20px 48px rgba(13,58,66,0.05);
+    }
+
+    /* Step number */
+    .step-num {
+      background: linear-gradient(135deg, #0d3a42 0%, #19636e 100%);
+      box-shadow: 0 4px 14px rgba(13,58,66,0.35);
+    }
+
+    /* Form input */
+    .form-input {
+      border: 1.5px solid #d1dde0;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .form-input:focus {
+      border-color: #2a939f;
+      box-shadow: 0 0 0 3px rgba(42,147,159,0.12);
+      outline: none;
+    }
+
+    /* Nav link */
+    .nav-link {
+      position: relative;
+      transition: color 0.2s ease;
+    }
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: -3px;
+      left: 0;
+      width: 0;
+      height: 1.5px;
+      background: #d4a030;
+      transition: width 0.25s ease;
+    }
+    .nav-link:hover::after { width: 100%; }
+    .nav-link:hover { color: #f0d080; }
+    .nav-link:focus-visible { outline: 2px solid #f0d080; border-radius: 2px; }
+
+    /* Stat number gradient */
+    .stat-num {
+      background: linear-gradient(135deg, #19636e, #2a939f);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Hero radial blobs */
+    .hero-blob-1 {
+      background: radial-gradient(ellipse 60% 50% at 20% 40%, rgba(42,147,159,0.25) 0%, transparent 70%);
+    }
+    .hero-blob-2 {
+      background: radial-gradient(ellipse 50% 60% at 80% 70%, rgba(212,160,48,0.12) 0%, transparent 70%);
+    }
+    .hero-blob-3 {
+      background: radial-gradient(ellipse 40% 40% at 60% 10%, rgba(255,255,255,0.05) 0%, transparent 70%);
+    }
+
+    /* Checkbox custom */
+    .checkbox-custom input:checked ~ .checkmark { background: #2a939f; border-color: #2a939f; }
+    .checkmark {
+      width: 18px; height: 18px;
+      border: 2px solid #d1dde0;
+      border-radius: 4px;
+      transition: background 0.2s, border-color 0.2s;
+      flex-shrink: 0;
+    }
+    .checkmark::after {
+      content: '';
+      display: none;
+      width: 5px; height: 9px;
+      border: 2px solid white;
+      border-top: none; border-left: none;
+      transform: rotate(45deg) translate(1px,-1px);
+    }
+    input:checked ~ .checkmark::after { display: block; }
+
+    /* Mobile menu */
+    #mobile-menu { max-height: 0; overflow: hidden; transition: max-height 0.35s ease; }
+    #mobile-menu.open { max-height: 400px; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(28px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .fade-up { animation: fadeUp 0.7s cubic-bezier(0.22,1,0.36,1) forwards; }
+    .delay-1 { animation-delay: 0.1s; opacity: 0; }
+    .delay-2 { animation-delay: 0.22s; opacity: 0; }
+    .delay-3 { animation-delay: 0.36s; opacity: 0; }
+    .delay-4 { animation-delay: 0.5s; opacity: 0; }
+
+    /* Trust badge */
+    .trust-badge {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 999px;
+      backdrop-filter: blur(8px);
+    }
+  </style>
+</head>
+<body class="font-sans bg-white text-teal-950 antialiased">
+
+  <!-- ═══════════════════════════════════════════════════
+       NAVIGATION
+  ═══════════════════════════════════════════════════ -->
+  <nav class="nav-glass fixed top-0 left-0 right-0 z-50">
+    <div class="max-w-6xl mx-auto px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+
+        <!-- Logo -->
+        <a href="#" class="flex items-center gap-2.5 focus-visible:outline-2 focus-visible:outline-gold-300 focus-visible:outline-offset-2 rounded">
+          <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background:linear-gradient(135deg,#2a939f,#19636e);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2L3 7v10l9 5 9-5V7L12 2z" stroke="white" stroke-width="1.8" stroke-linejoin="round"/>
+              <path d="M12 22V12M3 7l9 5 9-5" stroke="white" stroke-width="1.8" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <span class="font-display font-600 text-white text-lg tracking-tight">CleanPro</span>
+        </a>
+
+        <!-- Desktop Nav -->
+        <div class="hidden md:flex items-center gap-8">
+          <a href="#leistungen" class="nav-link text-white/75 text-sm font-medium">Leistungen</a>
+          <a href="#vorteile" class="nav-link text-white/75 text-sm font-medium">Vorteile</a>
+          <a href="#ablauf" class="nav-link text-white/75 text-sm font-medium">Ablauf</a>
+          <a href="#referenzen" class="nav-link text-white/75 text-sm font-medium">Referenzen</a>
+          <a href="#kontakt" class="nav-link text-white/75 text-sm font-medium">Kontakt</a>
+        </div>
+
+        <!-- CTA -->
+        <div class="hidden md:flex items-center gap-3">
+          <a href="tel:+4915511435755" class="text-white/75 text-sm font-medium hover:text-white transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-gold-300 focus-visible:rounded">
+            +49 155 1143 5755
+          </a>
+          <a href="#kontakt" class="btn-primary px-5 py-2.5 rounded-lg text-sm font-semibold text-teal-950 no-underline focus-visible:outline-offset-2">
+            Angebot anfragen
+          </a>
+        </div>
+
+        <!-- Mobile menu button -->
+        <button id="menu-btn" class="md:hidden text-white/80 hover:text-white transition-colors focus-visible:outline-2 focus-visible:outline-gold-300 rounded p-1" aria-label="Menü öffnen">
+          <svg id="icon-open" width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+          <svg id="icon-close" width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" class="hidden">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="md:hidden border-t border-white/10">
+      <div class="px-6 py-4 flex flex-col gap-4 bg-teal-950/95">
+        <a href="#leistungen" class="text-white/80 text-sm font-medium hover:text-white transition-colors" onclick="closeMenu()">Leistungen</a>
+        <a href="#vorteile" class="text-white/80 text-sm font-medium hover:text-white transition-colors" onclick="closeMenu()">Vorteile</a>
+        <a href="#ablauf" class="text-white/80 text-sm font-medium hover:text-white transition-colors" onclick="closeMenu()">Ablauf</a>
+        <a href="#referenzen" class="text-white/80 text-sm font-medium hover:text-white transition-colors" onclick="closeMenu()">Referenzen</a>
+        <a href="#kontakt" class="text-white/80 text-sm font-medium hover:text-white transition-colors" onclick="closeMenu()">Kontakt</a>
+        <a href="#kontakt" class="btn-primary px-5 py-3 rounded-lg text-sm font-semibold text-teal-950 text-center mt-1" onclick="closeMenu()">Angebot anfragen</a>
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       HERO
+  ═══════════════════════════════════════════════════ -->
+  <section class="relative min-h-screen flex items-center overflow-hidden grain" style="background: linear-gradient(155deg, #0a2a30 0%, #0d3a42 35%, #19636e 70%, #0d3a42 100%);">
+    <!-- Blobs -->
+    <div class="hero-blob-1 absolute inset-0 pointer-events-none"></div>
+    <div class="hero-blob-2 absolute inset-0 pointer-events-none"></div>
+    <div class="hero-blob-3 absolute inset-0 pointer-events-none"></div>
+
+    <!-- Background image with overlay -->
+    <div class="absolute inset-0 pointer-events-none">
+      <img src="https://placehold.co/1920x1080/0d3a42/1e6f7e?text=+" alt="" class="w-full h-full object-cover opacity-10" />
+      <div class="absolute inset-0" style="background:linear-gradient(to bottom, rgba(10,42,48,0.4) 0%, rgba(10,42,48,0.7) 100%)"></div>
+    </div>
+
+    <div class="relative max-w-6xl mx-auto px-6 lg:px-8 pt-28 pb-20 w-full">
+      <div class="max-w-2xl">
+
+        <!-- Trust badge -->
+        <div class="trust-badge inline-flex items-center gap-2 px-4 py-2 mb-8 fade-up delay-1">
+          <span class="w-1.5 h-1.5 rounded-full bg-gold-400 flex-shrink-0"></span>
+          <span class="text-white/80 text-xs font-medium tracking-wide uppercase">Über 500 zufriedene Kunden in Deutschland</span>
+        </div>
+
+        <!-- Headline -->
+        <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-700 text-white leading-tight tracking-tighter2 mb-6 fade-up delay-2">
+          Sauberkeit,<br />
+          <span style="background:linear-gradient(135deg,#e8bc54,#f0d080); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">
+            die überzeugt.
+          </span>
+        </h1>
+
+        <!-- Subtext -->
+        <p class="text-white/70 text-lg leading-relaxed2 mb-10 fade-up delay-3" style="max-width:480px;">
+          Professionelle Reinigungsdienstleistungen für Büros, Wohnungen und Gewerbeimmobilien — zuverlässig, gründlich und auf Ihren Bedarf zugeschnitten.
+        </p>
+
+        <!-- CTAs -->
+        <div class="flex flex-col sm:flex-row gap-4 fade-up delay-4">
+          <a href="#kontakt" class="btn-primary px-8 py-4 rounded-xl text-base font-semibold text-teal-950 text-center inline-block no-underline">
+            Kostenloses Angebot
+          </a>
+          <a href="#leistungen" class="btn-outline px-8 py-4 rounded-xl text-base font-semibold text-center inline-block no-underline">
+            Unsere Leistungen
+          </a>
+        </div>
+
+        <!-- Stats row -->
+        <div class="grid grid-cols-2 sm:flex sm:flex-wrap gap-6 sm:gap-8 mt-16 fade-up delay-4">
+          <div class="bg-white/5 sm:bg-transparent rounded-xl sm:rounded-none p-4 sm:p-0 border border-white/10 sm:border-0">
+            <p class="text-white text-3xl font-display font-700">500+</p>
+            <p class="text-white/55 text-sm mt-0.5">Zufriedene Kunden</p>
+          </div>
+          <div class="bg-white/5 sm:bg-transparent rounded-xl sm:rounded-none p-4 sm:p-0 border border-white/10 sm:border-0">
+            <p class="text-white text-3xl font-display font-700">10+</p>
+            <p class="text-white/55 text-sm mt-0.5">Jahre Erfahrung</p>
+          </div>
+          <div class="bg-white/5 sm:bg-transparent rounded-xl sm:rounded-none p-4 sm:p-0 border border-white/10 sm:border-0">
+            <p class="text-white text-3xl font-display font-700">98%</p>
+            <p class="text-white/55 text-sm mt-0.5">Empfehlungsrate</p>
+          </div>
+          <div class="bg-white/5 sm:bg-transparent rounded-xl sm:rounded-none p-4 sm:p-0 border border-white/10 sm:border-0">
+            <p class="text-white text-3xl font-display font-700">24h</p>
+            <p class="text-white/55 text-sm mt-0.5">Reaktionszeit</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scroll indicator -->
+    <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 text-white/30 fade-up delay-4">
+      <span class="text-xs tracking-widest uppercase">Scrollen</span>
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="animate-bounce">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/>
+      </svg>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       LEISTUNGEN (Services)
+  ═══════════════════════════════════════════════════ -->
+  <section id="leistungen" class="py-16 md:py-24 lg:py-32 bg-white">
+    <div class="max-w-6xl mx-auto px-6 lg:px-8">
+
+      <!-- Section header -->
+      <div class="text-center mb-16">
+        <span class="text-teal-600 text-sm font-semibold tracking-widest uppercase mb-3 block">Was wir anbieten</span>
+        <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-700 text-teal-950 tracking-tighter2 mb-4">
+          Unsere Leistungen
+        </h2>
+        <p class="text-teal-700/70 text-lg leading-relaxed2 max-w-xl mx-auto">
+          Maßgeschneiderte Reinigungslösungen für jeden Bedarf — mit Qualitätssicherung und festen Ansprechpartnern.
+        </p>
+      </div>
+
+      <!-- Services grid -->
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+
+        <!-- Card 1 -->
+        <div class="card-elevated rounded-2xl overflow-hidden group cursor-default">
+          <div class="relative h-44 overflow-hidden flex items-center justify-center" style="background:linear-gradient(135deg,#0d3a42 0%,#19636e 50%,#2a939f 100%);">
+            <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(ellipse 80% 80% at 30% 40%,rgba(255,255,255,0.07) 0%,transparent 70%)"></div>
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="1" class="absolute right-4 bottom-4 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+            <div class="relative z-10 flex flex-col items-center gap-3">
+              <div class="w-14 h-14 rounded-2xl flex items-center justify-center" style="background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.6"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+              </div>
+            </div>
+          </div>
+          <div class="p-7">
+            <h3 class="font-display text-xl font-700 text-teal-950 mb-2 tracking-tight">Büroreinigung</h3>
+            <p class="text-teal-700/70 text-sm leading-relaxed2 mb-5">
+              Saubere Arbeitsumgebungen steigern die Produktivität. Wir reinigen Büros, Konferenzräume und Gemeinschaftsflächen — diskret und termingerecht.
+            </p>
+            <ul class="space-y-2">
+              <li class="flex items-center gap-2.5 text-sm text-teal-800">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2a939f" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+                Tägliche & wöchentliche Reinigung
+              </li>
+              <li class="flex items-center gap-2.5 text-sm text-teal-800">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2a939f" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+                Sanitäranlagen & Küchen
+              </li>
+              <li class="flex items-center gap-2.5 text-sm text-teal-800">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2a939f" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+                Auf Wunsch außerhalb der Bürozeiten
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="card-elevated rounded-2xl overflow-hidden group cursor-default" style="box-shadow: 0 2px 4px rgba(13,58,66,0.06),0 12px 36px rgba(13,58,66,0.14),0 32px 80px rgba(13,58,66,0.1);">
+          <div class="relative h-44 overflow-hidden flex items-center justify-center" style="background:linear-gradient(135deg,#19636e 0%,#2a939f 50%,#46aebb 100%);">
+            <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(ellipse 80% 80% at 70% 30%,rgba(255,255,255,0.1) 0%,transparent 70%)"></div>
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="1" class="absolute right-4 bottom-4 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3"><rect x="2" y="7" width="20" height="15" rx="1"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
+            <div class="relative z-10 flex flex-col items-center gap-3">
+              <div class="w-14 h-14 rounded-2xl flex items-center justify-center" style="background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.6"><rect x="2" y="7" width="20" height="15" rx="1"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
+              </div>
+            </div>
+            <div class="absolute top-4 right-4 bg-gold-400 text-teal-950 text-xs font-700 px-3 py-1 rounded-full">Beliebt</div>
+          </div>
+          <div class="p-7" style="background:linear-gradient(160deg, #f8fffe 0%, #ffffff 100%);">
+            <h3 class="font-display text-xl font-700 text-teal-950 mb-2 tracking-tight">Gebäudereinigung</h3>
+            <p class="text-teal-700/70 text-sm leading-relaxed2 mb-5">
+              Sauberkeit für Bürogebäude, Wohnanlagen und Gewerbeimmobilien — regelmäßig, zuverlässig und nach höchsten Standards.
+            </p>
+            <ul class="space-y-2">
+              <li class="flex items-center gap-2.5 text-sm text-teal-800">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2a939f" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+                Treppenhäuser & Gemeinschaftsflächen
+              </li>
+              <li class="flex items-center gap-2.5 text-sm text-teal-800">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2a939f" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+                Bürogebäude & Gewerbeimmobilien
+              </li>
+              <li class="flex items-center gap-2.5 text-sm text-teal-800">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2a939f" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+                Individuelle Reinigungsintervalle
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="card-elevated rounded-2xl overflow-hidden group cursor-default">
+          <div class="relative h-44 overflow-hidden flex items-center justify-center" style="background:linear-gradient(135deg,#0a2a30 0%,#0d3a42 50%,#19636e 100%);">
+            <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(ellipse 80% 80% at 50% 20%,rgba(212,160,48,0.12) 0%,transparent 70%)"></div>
+            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.18)" stroke-width="1" class="absolute right-4 bottom-4 transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            <div class="relative z-10 flex flex-col items-center gap-3">
+              <div class="w-14 h-14 rounded-2xl flex items-center justify-center" style="background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.18);">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.6"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </div>
+            </div>
+          </div>
+          <div class="p-7">
+            <h3 class="font-display text-xl font-700 text-teal-950 mb-2 tracking-tight">Grund- & Tiefenreinigung</h3>
+            <p class="text-teal-700/70 text-sm leading-relaxed2 mb-5">
+              Wenn es mehr braucht als den Standard. Unsere Grundreinigung beseitigt hartnäckige Verschmutzungen und bringt Ihre Räume wieder zum Strahlen.
+            </p>
+            <ul class="space-y-2">
+              <li class="flex items-center gap-2.5 text-sm text-teal-800">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2a939f" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+                Ein- & Auszugsreinigung
+              </li>
+              <li class="flex items-center gap-2.5 text-sm text-teal-800">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2a939f" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+                Baureinigung nach Renovierung
+              </li>
+              <li class="flex items-center gap-2.5 text-sm text-teal-800">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2a939f" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+                Fliesen-, Parkett- & Teppichpflege
+              </li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Additional service pills -->
+      <div class="mt-12 flex flex-wrap gap-3 justify-center">
+        <span class="bg-teal-50 text-teal-700 text-sm font-medium px-4 py-2 rounded-full border border-teal-100">Fensterreinigung</span>
+        <span class="bg-teal-50 text-teal-700 text-sm font-medium px-4 py-2 rounded-full border border-teal-100">Treppenhaus</span>
+        <span class="bg-teal-50 text-teal-700 text-sm font-medium px-4 py-2 rounded-full border border-teal-100">Kliniken & Praxen</span>
+        <span class="bg-teal-50 text-teal-700 text-sm font-medium px-4 py-2 rounded-full border border-teal-100">Gastronomie</span>
+        <span class="bg-teal-50 text-teal-700 text-sm font-medium px-4 py-2 rounded-full border border-teal-100">Eventaufbau & -abbau</span>
+        <span class="bg-teal-50 text-teal-700 text-sm font-medium px-4 py-2 rounded-full border border-teal-100">Schädlingsbekämpfung</span>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       VORTEILE (Why Us)
+  ═══════════════════════════════════════════════════ -->
+  <section id="vorteile" class="py-16 md:py-24 lg:py-32 relative overflow-hidden grain" style="background: linear-gradient(160deg, #0d3a42 0%, #19636e 50%, #0d3a42 100%);">
+    <!-- Blobs -->
+    <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(ellipse 70% 50% at 90% 50%, rgba(212,160,48,0.08) 0%, transparent 70%)"></div>
+    <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(ellipse 50% 60% at 10% 60%, rgba(42,147,159,0.15) 0%, transparent 70%)"></div>
+
+    <div class="max-w-6xl mx-auto px-6 lg:px-8 relative">
+      <div class="grid md:grid-cols-2 gap-10 lg:gap-16 items-center">
+
+        <!-- Left -->
+        <div>
+          <span class="text-gold-400 text-sm font-semibold tracking-widest uppercase mb-3 block">Warum CleanPro?</span>
+          <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-700 text-white tracking-tighter2 mb-6 leading-tight">
+            Qualität, auf die<br />
+            Sie sich verlassen können
+          </h2>
+          <p class="text-white/65 text-lg leading-relaxed2 mb-10">
+            Wir verstehen, dass Vertrauen die Grundlage jeder guten Geschäftsbeziehung ist. Deshalb setzen wir auf geschulte Fachkräfte, geprüfte Reinigungsmittel und transparente Kommunikation.
+          </p>
+
+          <!-- USP list -->
+          <div class="space-y-5">
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style="background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.12);">
+                <svg width="18" height="18" fill="none" stroke="#d4a030" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+              </div>
+              <div>
+                <h4 class="text-white font-semibold text-base mb-1">Geprüfte & versicherte Fachkräfte</h4>
+                <p class="text-white/55 text-sm leading-relaxed">Alle Mitarbeiter werden sorgfältig ausgewählt, geschult und sind vollständig versichert.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style="background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.12);">
+                <svg width="18" height="18" fill="none" stroke="#d4a030" stroke-width="2" viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              </div>
+              <div>
+                <h4 class="text-white font-semibold text-base mb-1">Pünktlichkeit & Zuverlässigkeit</h4>
+                <p class="text-white/55 text-sm leading-relaxed">Wir erscheinen pünktlich und halten Termine ein — ohne Ausreden.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style="background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.12);">
+                <svg width="18" height="18" fill="none" stroke="#d4a030" stroke-width="2" viewBox="0 0 24 24"><path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+              </div>
+              <div>
+                <h4 class="text-white font-semibold text-base mb-1">Umweltfreundliche Reinigungsmittel</h4>
+                <p class="text-white/55 text-sm leading-relaxed">Wir verwenden biologisch abbaubare, zertifizierte Produkte — schonend für Mensch und Umwelt.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style="background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.12);">
+                <svg width="18" height="18" fill="none" stroke="#d4a030" stroke-width="2" viewBox="0 0 24 24"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+              </div>
+              <div>
+                <h4 class="text-white font-semibold text-base mb-1">Persönlicher Ansprechpartner</h4>
+                <p class="text-white/55 text-sm leading-relaxed">Kein Callcenter — ein fester Ansprechpartner, der Ihre Wünsche kennt.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: image + badge -->
+        <div class="relative pb-8 md:pb-6">
+          <div class="relative rounded-2xl overflow-hidden" style="box-shadow:0 8px 40px rgba(0,0,0,0.3), 0 2px 8px rgba(0,0,0,0.2);">
+            <img src="https://placehold.co/600x700/19636e/4db8c6?text=Professionelle+Reinigung" alt="Reinigung" class="w-full object-cover" />
+            <div class="absolute inset-0 bg-gradient-to-t from-teal-950/50 to-transparent mix-blend-multiply"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-teal-950/30 to-transparent"></div>
+          </div>
+          <!-- Floating card — inside flow on mobile, absolute on desktop -->
+          <div class="hidden md:block absolute -bottom-6 -left-6 bg-white rounded-2xl p-5" style="box-shadow:0 8px 32px rgba(13,58,66,0.2);">
+            <div class="flex items-center gap-3 mb-2">
+              <div class="flex -space-x-2">
+                <img src="https://placehold.co/32x32/19636e/ffffff?text=A" class="w-8 h-8 rounded-full border-2 border-white" alt="" />
+                <img src="https://placehold.co/32x32/2a939f/ffffff?text=B" class="w-8 h-8 rounded-full border-2 border-white" alt="" />
+                <img src="https://placehold.co/32x32/0d3a42/ffffff?text=C" class="w-8 h-8 rounded-full border-2 border-white" alt="" />
+              </div>
+              <div>
+                <p class="text-teal-950 font-semibold text-sm">Neueste Bewertung</p>
+                <div class="flex gap-0.5">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="#d4a030"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="#d4a030"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="#d4a030"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="#d4a030"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="#d4a030"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                </div>
+              </div>
+            </div>
+            <p class="text-teal-800 text-xs leading-relaxed max-w-[180px]">"Sehr professionell und immer pünktlich. Empfehle ich gerne weiter!"</p>
+          </div>
+          <!-- Mobile inline review card -->
+          <div class="md:hidden mt-4 bg-white/10 border border-white/15 rounded-2xl p-4 flex items-center gap-3">
+            <div class="flex -space-x-2 flex-shrink-0">
+              <img src="https://placehold.co/32x32/19636e/ffffff?text=A" class="w-8 h-8 rounded-full border-2 border-white/30" alt="" />
+              <img src="https://placehold.co/32x32/2a939f/ffffff?text=B" class="w-8 h-8 rounded-full border-2 border-white/30" alt="" />
+              <img src="https://placehold.co/32x32/0d3a42/ffffff?text=C" class="w-8 h-8 rounded-full border-2 border-white/30" alt="" />
+            </div>
+            <div>
+              <div class="flex gap-0.5 mb-0.5">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="#d4a030"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="#d4a030"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="#d4a030"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="#d4a030"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="#d4a030"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              </div>
+              <p class="text-white/75 text-xs">"Sehr professionell und immer pünktlich!"</p>
+            </div>
+          </div>
+          <!-- Certification badge — desktop only -->
+          <div class="hidden md:flex absolute -top-4 -right-4 bg-gold-400 text-teal-950 rounded-full w-16 h-16 flex-col items-center justify-center text-center shadow-lg" style="box-shadow:0 4px 16px rgba(212,160,48,0.4);">
+            <p class="text-xs font-700 leading-none">ISO</p>
+            <p class="text-xs font-700 leading-none">9001</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       ABLAUF (How it works)
+  ═══════════════════════════════════════════════════ -->
+  <section id="ablauf" class="py-16 md:py-24 lg:py-32" style="background: #f8f6f1;">
+    <div class="max-w-6xl mx-auto px-6 lg:px-8">
+
+      <div class="text-center mb-16">
+        <span class="text-teal-600 text-sm font-semibold tracking-widest uppercase mb-3 block">Einfach & transparent</span>
+        <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-700 text-teal-950 tracking-tighter2 mb-4">
+          So funktioniert's
+        </h2>
+        <p class="text-teal-700/70 text-lg leading-relaxed2 max-w-xl mx-auto">
+          In drei einfachen Schritten zu Ihrem perfekten Reinigungsservice.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8 relative">
+        <!-- Connector line -->
+        <div class="hidden md:block absolute top-12 left-[calc(16.67%+1.5rem)] right-[calc(16.67%+1.5rem)] h-px" style="background:linear-gradient(to right, #19636e, #2a939f, #19636e);"></div>
+
+        <!-- Step 1 -->
+        <div class="flex flex-col items-center text-center">
+          <div class="step-num w-24 h-24 rounded-2xl flex items-center justify-center mb-6 relative z-10">
+            <div class="text-center">
+              <span class="text-white/40 text-xs font-semibold tracking-widest">SCHRITT</span>
+              <p class="text-white font-display text-3xl font-700 leading-none">01</p>
+            </div>
+          </div>
+          <h3 class="font-display text-xl font-700 text-teal-950 mb-3 tracking-tight">Kontakt aufnehmen</h3>
+          <p class="text-teal-700/70 text-sm leading-relaxed2">
+            Rufen Sie uns an, schreiben Sie uns oder nutzen Sie unser Online-Formular. Wir melden uns innerhalb von 24 Stunden.
+          </p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="flex flex-col items-center text-center">
+          <div class="step-num w-24 h-24 rounded-2xl flex items-center justify-center mb-6 relative z-10">
+            <div class="text-center">
+              <span class="text-white/40 text-xs font-semibold tracking-widest">SCHRITT</span>
+              <p class="text-white font-display text-3xl font-700 leading-none">02</p>
+            </div>
+          </div>
+          <h3 class="font-display text-xl font-700 text-teal-950 mb-3 tracking-tight">Angebot erhalten</h3>
+          <p class="text-teal-700/70 text-sm leading-relaxed2">
+            Wir erstellen Ihnen ein individuelles, transparentes Angebot — ganz ohne versteckte Kosten oder Überraschungen.
+          </p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="flex flex-col items-center text-center">
+          <div class="step-num w-24 h-24 rounded-2xl flex items-center justify-center mb-6 relative z-10">
+            <div class="text-center">
+              <span class="text-white/40 text-xs font-semibold tracking-widest">SCHRITT</span>
+              <p class="text-white font-display text-3xl font-700 leading-none">03</p>
+            </div>
+          </div>
+          <h3 class="font-display text-xl font-700 text-teal-950 mb-3 tracking-tight">Loslegen & entspannen</h3>
+          <p class="text-teal-700/70 text-sm leading-relaxed2">
+            Wir kümmern uns um alles. Sie lehnen sich zurück und genießen Ihr makelloses Ergebnis.
+          </p>
+        </div>
+      </div>
+
+      <!-- Bottom CTA -->
+      <div class="text-center mt-14">
+        <a href="#kontakt" class="btn-primary inline-block px-10 py-4 rounded-xl text-base font-semibold text-teal-950 no-underline">
+          Jetzt kostenlos anfragen
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       REFERENZEN (Testimonials)
+  ═══════════════════════════════════════════════════ -->
+  <section id="referenzen" class="py-16 md:py-24 lg:py-32 bg-white">
+    <div class="max-w-6xl mx-auto px-6 lg:px-8">
+
+      <div class="text-center mb-16">
+        <span class="text-teal-600 text-sm font-semibold tracking-widest uppercase mb-3 block">Das sagen unsere Kunden</span>
+        <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-700 text-teal-950 tracking-tighter2 mb-4">
+          Bewertungen & Referenzen
+        </h2>
+        <p class="text-teal-700/70 text-lg leading-relaxed2 max-w-xl mx-auto">
+          Vertrauen, das durch Qualität entsteht. Lesen Sie, was unsere Kunden über uns sagen.
+        </p>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <!-- Testimonial 1 -->
+        <div class="testimonial-card rounded-2xl p-7">
+          <div class="flex items-center gap-1 mb-4">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#d4a030"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#d4a030"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#d4a030"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#d4a030"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#d4a030"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <p class="text-teal-900 text-sm leading-relaxed2 mb-6">
+            „CleanPro reinigt unser Büro seit über zwei Jahren. Das Team ist immer pünktlich, diskret und das Ergebnis übertrifft jedes Mal unsere Erwartungen. Absolut empfehlenswert!"
+          </p>
+          <div class="flex items-center gap-3">
+            <img src="https://placehold.co/44x44/19636e/ffffff?text=MK" class="w-11 h-11 rounded-full" alt="Michael K." />
+            <div>
+              <p class="text-teal-950 font-semibold text-sm">Michael Kaufmann</p>
+              <p class="text-teal-600/70 text-xs">Geschäftsführer, TechBerlin GmbH</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 2 -->
+        <div class="testimonial-card rounded-2xl p-7" style="background:linear-gradient(145deg, #0d3a42, #19636e); box-shadow:0 8px 32px rgba(13,58,66,0.3);">
+          <div class="flex items-center gap-1 mb-4">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#d4a030"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#d4a030"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#d4a030"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#d4a030"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#d4a030"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <p class="text-white/85 text-sm leading-relaxed2 mb-6">
+            „Ich nutze CleanPro für die Wohnungsreinigung und bin restlos begeistert. Dieselbe Reinigungskraft jede Woche — das ist Gold wert. Meine Wohnung war noch nie so sauber!"
+          </p>
+          <div class="flex items-center gap-3">
+            <img src="https://placehold.co/44x44/2a939f/ffffff?text=SB" class="w-11 h-11 rounded-full" alt="Sarah B." />
+            <div>
+              <p class="text-white font-semibold text-sm">Sarah Becker</p>
+              <p class="text-white/50 text-xs">Privatkundin, München</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 3 -->
+        <div class="testimonial-card rounded-2xl p-7">
+          <div class="flex items-center gap-1 mb-4">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#d4a030"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#d4a030"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#d4a030"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#d4a030"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="#d4a030"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <p class="text-teal-900 text-sm leading-relaxed2 mb-6">
+            „Die Grundreinigung nach unserem Umbau war hervorragend. Das Team hat selbst die unmöglichsten Ecken blitzsauber gemacht. Preis-Leistung ist top!"
+          </p>
+          <div class="flex items-center gap-3">
+            <img src="https://placehold.co/44x44/0d3a42/ffffff?text=TM" class="w-11 h-11 rounded-full" alt="Thomas M." />
+            <div>
+              <p class="text-teal-950 font-semibold text-sm">Thomas Müller</p>
+              <p class="text-teal-600/70 text-xs">Immobilienmakler, Hamburg</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Logos / trust row -->
+      <div class="mt-16 pt-12 border-t border-teal-100">
+        <p class="text-center text-teal-600/50 text-sm font-medium tracking-wider uppercase mb-8">Vertrauen von über 500 Unternehmen & Privatpersonen</p>
+        <div class="flex flex-wrap items-center justify-center gap-8 lg:gap-14 opacity-40">
+          <div class="text-teal-950 font-display font-700 text-xl tracking-tight">TechBerlin</div>
+          <div class="text-teal-950 font-display font-700 text-xl tracking-tight">ImmoPro</div>
+          <div class="text-teal-950 font-display font-700 text-xl tracking-tight">Gastro GmbH</div>
+          <div class="text-teal-950 font-display font-700 text-xl tracking-tight">KlinikCenter</div>
+          <div class="text-teal-950 font-display font-700 text-xl tracking-tight">EventHouse</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       KONTAKT (Contact)
+  ═══════════════════════════════════════════════════ -->
+  <section id="kontakt" class="py-16 md:py-24 lg:py-32 relative overflow-hidden grain" style="background: linear-gradient(160deg, #0a2a30 0%, #0d3a42 40%, #19636e 100%);">
+    <!-- Blobs -->
+    <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(ellipse 60% 60% at 80% 20%, rgba(42,147,159,0.2) 0%, transparent 70%)"></div>
+    <div class="absolute inset-0 pointer-events-none" style="background:radial-gradient(ellipse 50% 50% at 20% 80%, rgba(212,160,48,0.08) 0%, transparent 70%)"></div>
+
+    <div class="max-w-6xl mx-auto px-6 lg:px-8 relative">
+      <div class="grid md:grid-cols-2 gap-10 lg:gap-16 items-start">
+
+        <!-- Left: info -->
+        <div>
+          <span class="text-gold-400 text-sm font-semibold tracking-widest uppercase mb-3 block">Kontakt</span>
+          <h2 class="font-display text-3xl sm:text-4xl lg:text-5xl font-700 text-white tracking-tighter2 mb-6 leading-tight">
+            Lassen Sie uns<br />
+            ins Gespräch kommen
+          </h2>
+          <p class="text-white/65 text-lg leading-relaxed2 mb-10">
+            Fordern Sie noch heute Ihr kostenloses Angebot an. Wir melden uns innerhalb von 24 Stunden bei Ihnen.
+          </p>
+
+          <!-- Contact details -->
+          <div class="space-y-5">
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.12);">
+                <svg width="20" height="20" fill="none" stroke="#d4a030" stroke-width="1.8" viewBox="0 0 24 24"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+              </div>
+              <div>
+                <p class="text-white/50 text-xs uppercase tracking-widest mb-0.5">Telefon</p>
+                <a href="tel:+4915511435755" class="text-white font-medium hover:text-gold-300 transition-colors focus-visible:outline-2 focus-visible:outline-gold-300 rounded">+49 155 1143 5755</a>
+              </div>
+            </div>
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.12);">
+                <svg width="20" height="20" fill="none" stroke="#d4a030" stroke-width="1.8" viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+              </div>
+              <div>
+                <p class="text-white/50 text-xs uppercase tracking-widest mb-0.5">E-Mail</p>
+                <a href="mailto:info@cleanpro.de" class="text-white font-medium hover:text-gold-300 transition-colors focus-visible:outline-2 focus-visible:outline-gold-300 rounded">info@cleanpro.de</a>
+              </div>
+            </div>
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.12);">
+                <svg width="20" height="20" fill="none" stroke="#d4a030" stroke-width="1.8" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+              </div>
+              <div>
+                <p class="text-white/50 text-xs uppercase tracking-widest mb-0.5">Standort</p>
+                <p class="text-white font-medium">Musterstraße 12, 10115 Berlin</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style="background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.12);">
+                <svg width="20" height="20" fill="none" stroke="#d4a030" stroke-width="1.8" viewBox="0 0 24 24"><path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              </div>
+              <div>
+                <p class="text-white/50 text-xs uppercase tracking-widest mb-0.5">Öffnungszeiten</p>
+                <p class="text-white font-medium">Mo–Fr: 8–18 Uhr · Sa: 9–14 Uhr</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: form -->
+        <div class="bg-white rounded-2xl p-6 sm:p-8 lg:p-10" style="box-shadow:0 8px 40px rgba(0,0,0,0.25);">
+          <h3 class="font-display text-2xl font-700 text-teal-950 mb-1 tracking-tight">Kostenloses Angebot</h3>
+          <p class="text-teal-700/60 text-sm mb-7">Ausfüllen, absenden, fertig — wir melden uns!</p>
+
+          <form onsubmit="handleSubmit(event)" class="space-y-5">
+            <div class="grid sm:grid-cols-2 gap-5">
+              <div>
+                <label for="vorname" class="block text-teal-900 text-sm font-medium mb-1.5">Vorname</label>
+                <input id="vorname" type="text" placeholder="Max" required
+                  class="form-input w-full px-4 py-3 rounded-xl text-sm text-teal-950 placeholder-teal-300/60 bg-teal-50/30" />
+              </div>
+              <div>
+                <label for="nachname" class="block text-teal-900 text-sm font-medium mb-1.5">Nachname</label>
+                <input id="nachname" type="text" placeholder="Mustermann" required
+                  class="form-input w-full px-4 py-3 rounded-xl text-sm text-teal-950 placeholder-teal-300/60 bg-teal-50/30" />
+              </div>
+            </div>
+            <div>
+              <label for="email" class="block text-teal-900 text-sm font-medium mb-1.5">E-Mail-Adresse</label>
+              <input id="email" type="email" placeholder="max@beispiel.de" required
+                class="form-input w-full px-4 py-3 rounded-xl text-sm text-teal-950 placeholder-teal-300/60 bg-teal-50/30" />
+            </div>
+            <div>
+              <label for="telefon" class="block text-teal-900 text-sm font-medium mb-1.5">Telefonnummer <span class="text-teal-400/60 font-normal">(optional)</span></label>
+              <input id="telefon" type="tel" placeholder="+49 123 456 789"
+                class="form-input w-full px-4 py-3 rounded-xl text-sm text-teal-950 placeholder-teal-300/60 bg-teal-50/30" />
+            </div>
+            <div>
+              <label for="leistung" class="block text-teal-900 text-sm font-medium mb-1.5">Gewünschte Leistung</label>
+              <select id="leistung" required class="form-input w-full px-4 py-3 rounded-xl text-sm text-teal-950 bg-teal-50/30 appearance-none cursor-pointer">
+                <option value="" disabled selected>Bitte wählen...</option>
+                <option>Büroreinigung</option>
+                <option>Gebäudereinigung</option>
+                <option>Grundreinigung / Tiefenreinigung</option>
+                <option>Fensterreinigung</option>
+                <option>Baureinigung</option>
+                <option>Sonstiges</option>
+              </select>
+            </div>
+            <div>
+              <label for="nachricht" class="block text-teal-900 text-sm font-medium mb-1.5">Nachricht</label>
+              <textarea id="nachricht" rows="3" placeholder="Beschreiben Sie kurz Ihren Reinigungsbedarf..."
+                class="form-input w-full px-4 py-3 rounded-xl text-sm text-teal-950 placeholder-teal-300/60 bg-teal-50/30 resize-none"></textarea>
+            </div>
+
+            <button type="submit" class="btn-primary w-full py-4 rounded-xl text-base font-semibold text-teal-950 transition-all">
+              Angebot kostenlos anfragen →
+            </button>
+
+            <p class="text-teal-500/60 text-xs text-center leading-relaxed">
+              Mit dem Absenden stimmen Sie unserer
+              <a href="#" class="underline hover:text-teal-600 transition-colors focus-visible:outline-1 focus-visible:outline-teal-600 rounded">Datenschutzerklärung</a> zu.
+            </p>
+          </form>
+          <!-- Success message (hidden) -->
+          <div id="form-success" class="hidden text-center py-8">
+            <div class="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-4" style="background:linear-gradient(135deg,#2a939f,#19636e);">
+              <svg width="24" height="24" fill="none" stroke="white" stroke-width="2.5" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+            </div>
+            <h4 class="font-display text-xl font-700 text-teal-950 mb-2">Vielen Dank!</h4>
+            <p class="text-teal-700/70 text-sm leading-relaxed">Ihre Anfrage ist bei uns eingegangen. Wir melden uns innerhalb von 24 Stunden bei Ihnen.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════════════════ -->
+  <footer class="bg-teal-950 pt-16 pb-8">
+    <div class="max-w-6xl mx-auto px-6 lg:px-8">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-10 pb-12 border-b border-white/10">
+
+        <!-- Brand -->
+        <div class="col-span-2 md:col-span-2">
+          <div class="flex items-center gap-2.5 mb-4">
+            <div class="w-8 h-8 rounded-lg flex items-center justify-center" style="background:linear-gradient(135deg,#2a939f,#19636e);">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2L3 7v10l9 5 9-5V7L12 2z" stroke="white" stroke-width="1.8" stroke-linejoin="round"/>
+                <path d="M12 22V12M3 7l9 5 9-5" stroke="white" stroke-width="1.8" stroke-linejoin="round"/>
+              </svg>
+            </div>
+            <span class="font-display font-600 text-white text-lg tracking-tight">CleanPro</span>
+          </div>
+          <p class="text-white/45 text-sm leading-relaxed2 max-w-xs mb-5">
+            Professionelle Reinigungsdienstleistungen für Gewerbe und Privat — seit über 10 Jahren eine feste Größe in Deutschland.
+          </p>
+          <div class="flex items-center gap-3">
+            <a href="#" aria-label="Instagram" class="w-9 h-9 rounded-lg flex items-center justify-center transition-colors focus-visible:outline-2 focus-visible:outline-gold-300" style="background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.1);" onmouseover="this.style.background='rgba(255,255,255,0.16)'" onmouseout="this.style.background='rgba(255,255,255,0.08)'">
+              <svg width="15" height="15" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="1.6" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+            </a>
+            <a href="#" aria-label="Facebook" class="w-9 h-9 rounded-lg flex items-center justify-center transition-colors focus-visible:outline-2 focus-visible:outline-gold-300" style="background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.1);" onmouseover="this.style.background='rgba(255,255,255,0.16)'" onmouseout="this.style.background='rgba(255,255,255,0.08)'">
+              <svg width="15" height="15" fill="rgba(255,255,255,0.7)" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+            </a>
+            <a href="#" aria-label="LinkedIn" class="w-9 h-9 rounded-lg flex items-center justify-center transition-colors focus-visible:outline-2 focus-visible:outline-gold-300" style="background:rgba(255,255,255,0.08); border:1px solid rgba(255,255,255,0.1);" onmouseover="this.style.background='rgba(255,255,255,0.16)'" onmouseout="this.style.background='rgba(255,255,255,0.08)'">
+              <svg width="15" height="15" fill="none" stroke="rgba(255,255,255,0.7)" stroke-width="1.6" viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2zM4 6a2 2 0 100-4 2 2 0 000 4z"/></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Leistungen -->
+        <div>
+          <h4 class="text-white font-semibold text-sm mb-5 tracking-wide">Leistungen</h4>
+          <ul class="space-y-3">
+            <li><a href="#leistungen" class="text-white/45 text-sm hover:text-white transition-colors focus-visible:text-white focus-visible:outline-none">Büroreinigung</a></li>
+            <li><a href="#leistungen" class="text-white/45 text-sm hover:text-white transition-colors focus-visible:text-white focus-visible:outline-none">Gebäudereinigung</a></li>
+            <li><a href="#leistungen" class="text-white/45 text-sm hover:text-white transition-colors focus-visible:text-white focus-visible:outline-none">Grundreinigung</a></li>
+            <li><a href="#leistungen" class="text-white/45 text-sm hover:text-white transition-colors focus-visible:text-white focus-visible:outline-none">Fensterreinigung</a></li>
+            <li><a href="#leistungen" class="text-white/45 text-sm hover:text-white transition-colors focus-visible:text-white focus-visible:outline-none">Baureinigung</a></li>
+          </ul>
+        </div>
+
+        <!-- Unternehmen -->
+        <div>
+          <h4 class="text-white font-semibold text-sm mb-5 tracking-wide">Unternehmen</h4>
+          <ul class="space-y-3">
+            <li><a href="#vorteile" class="text-white/45 text-sm hover:text-white transition-colors focus-visible:text-white focus-visible:outline-none">Über uns</a></li>
+            <li><a href="#referenzen" class="text-white/45 text-sm hover:text-white transition-colors focus-visible:text-white focus-visible:outline-none">Referenzen</a></li>
+            <li><a href="#kontakt" class="text-white/45 text-sm hover:text-white transition-colors focus-visible:text-white focus-visible:outline-none">Kontakt</a></li>
+            <li><a href="#" class="text-white/45 text-sm hover:text-white transition-colors focus-visible:text-white focus-visible:outline-none">Impressum</a></li>
+            <li><a href="#" class="text-white/45 text-sm hover:text-white transition-colors focus-visible:text-white focus-visible:outline-none">Datenschutz</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Bottom bar -->
+      <div class="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <p class="text-white/30 text-sm">© 2026 CleanPro GmbH. Alle Rechte vorbehalten.</p>
+        <div class="flex items-center gap-2 text-white/30 text-sm">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <span>Versichert & zertifiziert in Deutschland</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+  <script>
+    // Mobile menu toggle
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const iconOpen = document.getElementById('icon-open');
+    const iconClose = document.getElementById('icon-close');
+    let menuOpen = false;
+
+    menuBtn.addEventListener('click', () => {
+      menuOpen = !menuOpen;
+      mobileMenu.classList.toggle('open', menuOpen);
+      iconOpen.classList.toggle('hidden', menuOpen);
+      iconClose.classList.toggle('hidden', !menuOpen);
+    });
+
+    function closeMenu() {
+      menuOpen = false;
+      mobileMenu.classList.remove('open');
+      iconOpen.classList.remove('hidden');
+      iconClose.classList.add('hidden');
+    }
+
+    // Close menu on scroll
+    window.addEventListener('scroll', () => {
+      if (menuOpen) closeMenu();
+    });
+
+    // Form submission
+    function handleSubmit(e) {
+      e.preventDefault();
+      const vorname   = document.getElementById('vorname').value;
+      const nachname  = document.getElementById('nachname').value;
+      const email     = document.getElementById('email').value;
+      const telefon   = document.getElementById('telefon').value;
+      const leistung  = document.getElementById('leistung').value;
+      const nachricht = document.getElementById('nachricht').value;
+
+      const msg = [
+        '📋 *Neue Anfrage über CleanPro Website*',
+        '',
+        `👤 *Name:* ${vorname} ${nachname}`,
+        `📧 *E-Mail:* ${email}`,
+        telefon ? `📞 *Telefon:* ${telefon}` : '',
+        `🧹 *Leistung:* ${leistung}`,
+        nachricht ? `💬 *Nachricht:* ${nachricht}` : '',
+      ].filter(Boolean).join('\n');
+
+      const url = 'https://wa.me/4901736413198?text=' + encodeURIComponent(msg);
+      window.open(url, '_blank');
+
+      const form = e.target;
+      const success = document.getElementById('form-success');
+      form.style.opacity = '0';
+      form.style.transform = 'scale(0.98)';
+      setTimeout(() => {
+        form.style.display = 'none';
+        success.classList.remove('hidden');
+        success.style.opacity = '0';
+        setTimeout(() => { success.style.opacity = '1'; success.style.transition = 'opacity 0.4s ease'; }, 10);
+      }, 300);
+    }
+
+    // Nav active state on scroll
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          navLinks.forEach(link => {
+            link.style.color = '';
+            if (link.getAttribute('href') === '#' + entry.target.id) {
+              link.style.color = '#f0d080';
+            }
+          });
+        }
+      });
+    }, { rootMargin: '-50% 0px -50% 0px' });
+
+    sections.forEach(s => observer.observe(s));
+
+    // Smooth fade-in on scroll for cards
+    const fadeEls = document.querySelectorAll('.card-elevated, .testimonial-card');
+    const cardObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+          cardObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    fadeEls.forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(24px)';
+      el.style.transition = 'opacity 0.6s ease, transform 0.6s cubic-bezier(0.22,1,0.36,1)';
+      cardObserver.observe(el);
+    });
+  </script>
+</body>
+</html>
