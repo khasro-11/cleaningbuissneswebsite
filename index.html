@@ -262,8 +262,8 @@
 
         <!-- CTA -->
         <div class="hidden md:flex items-center gap-3">
-          <a href="tel:+49123456789" class="text-white/75 text-sm font-medium hover:text-white transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-gold-300 focus-visible:rounded">
-            +49 123 456 789
+          <a href="tel:+4915511435755" class="text-white/75 text-sm font-medium hover:text-white transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-gold-300 focus-visible:rounded">
+            +49 155 1143 5755
           </a>
           <a href="#kontakt" class="btn-primary px-5 py-2.5 rounded-lg text-sm font-semibold text-teal-950 no-underline focus-visible:outline-offset-2">
             Angebot anfragen
@@ -830,7 +830,7 @@
               </div>
               <div>
                 <p class="text-white/50 text-xs uppercase tracking-widest mb-0.5">Telefon</p>
-                <a href="tel:+49123456789" class="text-white font-medium hover:text-gold-300 transition-colors focus-visible:outline-2 focus-visible:outline-gold-300 rounded">+49 123 456 789</a>
+                <a href="tel:+4915511435755" class="text-white font-medium hover:text-gold-300 transition-colors focus-visible:outline-2 focus-visible:outline-gold-300 rounded">+49 155 1143 5755</a>
               </div>
             </div>
             <div class="flex items-center gap-4">
@@ -1033,6 +1033,26 @@
     // Form submission
     function handleSubmit(e) {
       e.preventDefault();
+      const vorname   = document.getElementById('vorname').value;
+      const nachname  = document.getElementById('nachname').value;
+      const email     = document.getElementById('email').value;
+      const telefon   = document.getElementById('telefon').value;
+      const leistung  = document.getElementById('leistung').value;
+      const nachricht = document.getElementById('nachricht').value;
+
+      const msg = [
+        '📋 *Neue Anfrage über CleanPro Website*',
+        '',
+        `👤 *Name:* ${vorname} ${nachname}`,
+        `📧 *E-Mail:* ${email}`,
+        telefon ? `📞 *Telefon:* ${telefon}` : '',
+        `🧹 *Leistung:* ${leistung}`,
+        nachricht ? `💬 *Nachricht:* ${nachricht}` : '',
+      ].filter(Boolean).join('\n');
+
+      const url = 'https://wa.me/4901736413198?text=' + encodeURIComponent(msg);
+      window.open(url, '_blank');
+
       const form = e.target;
       const success = document.getElementById('form-success');
       form.style.opacity = '0';
