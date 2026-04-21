@@ -77,7 +77,7 @@ export default function Kontakt() {
         <div className="grid md:grid-cols-2 gap-10 lg:gap-16 items-start">
 
           {/* Left */}
-          <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={viewport}>
+          <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={viewport} className="order-2 md:order-1">
             <motion.span className="text-gold-400 text-sm font-semibold tracking-widest uppercase mb-3 block" variants={fadeUp}>Kontakt</motion.span>
             <motion.h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tighter2 mb-6 leading-tight" variants={fadeUp}>
               Lassen Sie uns<br />ins Gespräch kommen
@@ -103,7 +103,7 @@ export default function Kontakt() {
 
           {/* Right: form */}
           <motion.div
-            className="bg-white rounded-2xl p-6 sm:p-8 lg:p-10"
+            className="bg-white rounded-2xl p-6 sm:p-8 lg:p-10 order-1 md:order-2"
             style={{ boxShadow: '0 8px 40px rgba(0,0,0,0.25)' }}
             variants={slideRight}
             initial="hidden"
