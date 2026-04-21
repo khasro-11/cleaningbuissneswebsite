@@ -2,14 +2,29 @@ import { motion } from 'framer-motion'
 import { fadeUp, stagger, viewport } from '../utils/animations'
 
 const Logo = () => (
-  <div className="flex items-center gap-2.5 mb-4">
-    <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: 'linear-gradient(135deg,#2a939f,#19636e)' }}>
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-        <path d="M12 2L3 7v10l9 5 9-5V7L12 2z" stroke="white" strokeWidth="1.8" strokeLinejoin="round"/>
-        <path d="M12 22V12M3 7l9 5 9-5" stroke="white" strokeWidth="1.8" strokeLinejoin="round"/>
-      </svg>
+  <div className="flex items-center gap-3 mb-4">
+    <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="footerLogoBg" cx="38%" cy="28%" r="85%">
+          <stop offset="0%" stopColor="#52d4e6"/>
+          <stop offset="100%" stopColor="#0b4a56"/>
+        </radialGradient>
+        <filter id="footerLogoGlow" x="-20%" y="-20%" width="140%" height="140%">
+          <feGaussianBlur stdDeviation="1.5" result="blur"/>
+          <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+      <circle cx="20" cy="20" r="19.5" fill="url(#footerLogoBg)" opacity="0.18"/>
+      <circle cx="20" cy="20" r="18" fill="url(#footerLogoBg)"/>
+      <path d="M20 7 L23.3 16.7 L33 20 L23.3 23.3 L20 33 L16.7 23.3 L7 20 L16.7 16.7 Z" fill="white" filter="url(#footerLogoGlow)"/>
+      <circle cx="11.5" cy="11.5" r="1.3" fill="white" opacity="0.55"/>
+      <circle cx="29" cy="11" r="0.9" fill="white" opacity="0.4"/>
+      <circle cx="29.5" cy="28.5" r="1.2" fill="white" opacity="0.45"/>
+    </svg>
+    <div className="flex flex-col leading-none gap-[3px]">
+      <span className="font-display font-bold text-white text-[1.05rem] tracking-tight leading-none">CleanPro</span>
+      <span className="text-[8.5px] text-white/40 tracking-[0.2em] uppercase font-sans">Reinigungsservice</span>
     </div>
-    <span className="font-display font-semibold text-white text-lg tracking-tight">CleanPro</span>
   </div>
 )
 
@@ -67,7 +82,7 @@ export default function Footer() {
             <h4 className="text-white font-semibold text-sm mb-5 tracking-wide">Leistungen</h4>
             <ul className="space-y-3">
               {['Büroreinigung','Gebäudereinigung','Grundreinigung','Fensterreinigung','Baureinigung'].map(l => (
-                <li key={l}><a href="#leistungen" className="text-white/45 text-sm hover:text-white transition-colors">{l}</a></li>
+                <li key={l}><a href="#leistungen" className="text-white/45 text-sm hover:text-white focus-visible:text-gold-300 focus-visible:outline-none active:text-white/60 transition-colors">{l}</a></li>
               ))}
             </ul>
           </motion.div>
@@ -83,7 +98,7 @@ export default function Footer() {
                 { href: '#',           label: 'Impressum' },
                 { href: '#',           label: 'Datenschutz' },
               ].map(l => (
-                <li key={l.label}><a href={l.href} className="text-white/45 text-sm hover:text-white transition-colors">{l.label}</a></li>
+                <li key={l.label}><a href={l.href} className="text-white/45 text-sm hover:text-white focus-visible:text-gold-300 focus-visible:outline-none active:text-white/60 transition-colors">{l.label}</a></li>
               ))}
             </ul>
           </motion.div>

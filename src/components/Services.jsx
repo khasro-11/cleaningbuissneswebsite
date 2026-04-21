@@ -73,7 +73,7 @@ const pills = ['Fensterreinigung', 'Treppenhaus', 'Kliniken & Praxen', 'Gastrono
 
 export default function Services() {
   return (
-    <section id="leistungen" className="py-16 md:py-24 lg:py-32 bg-white">
+    <section id="leistungen" className="py-16 md:py-24 lg:py-32 grain" style={{ background: 'linear-gradient(180deg, #ffffff 0%, #f4fcfc 60%, #edf8f9 100%)' }}>
       <div className="max-w-6xl mx-auto px-6 lg:px-8">
 
         <motion.div className="text-center mb-16" variants={stagger} initial="hidden" whileInView="visible" viewport={viewport}>
@@ -93,6 +93,7 @@ export default function Services() {
               className="card-elevated rounded-2xl overflow-hidden cursor-default"
               variants={fadeUp}
               whileHover={{ y: -8, boxShadow: '0 2px 4px rgba(13,58,66,0.06), 0 8px 24px rgba(13,58,66,0.12), 0 32px 64px rgba(13,58,66,0.10)' }}
+              whileTap={{ y: -2, scale: 0.99 }}
               transition={{ type: 'spring', stiffness: 280, damping: 22 }}
             >
               {/* Card header */}
@@ -128,7 +129,13 @@ export default function Services() {
         {/* Pill tags */}
         <motion.div className="mt-12 flex flex-wrap gap-3 justify-center" variants={stagger} initial="hidden" whileInView="visible" viewport={viewport}>
           {pills.map(p => (
-            <motion.span key={p} className="bg-teal-50 text-teal-700 text-sm font-medium px-4 py-2 rounded-full border border-teal-100" variants={fadeUp}>
+            <motion.span
+              key={p}
+              className="bg-teal-50 text-teal-700 text-sm font-medium px-4 py-2 rounded-full border border-teal-100 cursor-default"
+              variants={fadeUp}
+              whileHover={{ backgroundColor: '#d4f0f2', borderColor: '#2a939f', color: '#0d3a42', scale: 1.04 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+            >
               {p}
             </motion.span>
           ))}

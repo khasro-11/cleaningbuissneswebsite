@@ -74,7 +74,8 @@ export default function Vorteile() {
           <motion.div className="relative pb-8 md:pb-6" variants={slideRight} initial="hidden" whileInView="visible" viewport={viewport}>
             <div className="relative rounded-2xl overflow-hidden" style={{ boxShadow: '0 8px 40px rgba(0,0,0,0.3), 0 2px 8px rgba(0,0,0,0.2)' }}>
               <img src="https://placehold.co/600x700/19636e/4db8c6?text=Professionelle+Reinigung" alt="Reinigung" className="w-full object-cover" />
-              <div className="absolute inset-0 bg-gradient-to-t from-teal-950/30 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+              <div className="absolute inset-0" style={{ background: 'rgba(25,99,110,0.35)', mixBlendMode: 'multiply' }} />
             </div>
 
             {/* Floating review card — desktop only */}

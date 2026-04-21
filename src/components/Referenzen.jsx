@@ -42,7 +42,7 @@ const logos = ['TechBerlin', 'ImmoPro', 'Gastro GmbH', 'KlinikCenter', 'EventHou
 
 export default function Referenzen() {
   return (
-    <section id="referenzen" className="py-16 md:py-24 lg:py-32 bg-white">
+    <section id="referenzen" className="py-16 md:py-24 lg:py-32 grain" style={{ background: 'linear-gradient(180deg, #edf8f9 0%, #f6fcfc 40%, #ffffff 70%, #f4fcfc 100%)' }}>
       <div className="max-w-6xl mx-auto px-6 lg:px-8">
 
         <motion.div className="text-center mb-16" variants={stagger} initial="hidden" whileInView="visible" viewport={viewport}>
@@ -62,7 +62,8 @@ export default function Referenzen() {
               className="testimonial-card rounded-2xl p-7"
               style={t.dark ? { background: 'linear-gradient(145deg, #0d3a42, #19636e)', boxShadow: '0 8px 32px rgba(13,58,66,0.3)' } : {}}
               variants={fadeUp}
-              whileHover={{ y: -4 }}
+              whileHover={{ y: -6, boxShadow: '0 2px 8px rgba(13,58,66,0.08), 0 16px 48px rgba(13,58,66,0.15)' }}
+              whileTap={{ y: 0, scale: 0.99 }}
               transition={{ type: 'spring', stiffness: 300, damping: 22 }}
             >
               <Stars />
