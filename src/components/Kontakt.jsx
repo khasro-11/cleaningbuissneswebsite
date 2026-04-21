@@ -4,7 +4,7 @@ import emailjs from '@emailjs/browser'
 import { fadeUp, slideLeft, slideRight, stagger, viewport } from '../utils/animations'
 
 const EMAILJS_SERVICE  = 'service_b5s1o4r'
-const EMAILJS_TEMPLATE = 'template_5j8inhv'
+const EMAILJS_TEMPLATE = 'template_fxi5j53'
 const EMAILJS_KEY      = 'pMvYvsy9XX0St2gjU'
 
 const contactItems = [
