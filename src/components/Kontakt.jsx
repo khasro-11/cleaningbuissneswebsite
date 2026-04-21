@@ -1,6 +1,11 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
+import emailjs from '@emailjs/browser'
 import { fadeUp, slideLeft, slideRight, stagger, viewport } from '../utils/animations'
+
+const EMAILJS_SERVICE  = 'service_b5s1o4r'
+const EMAILJS_TEMPLATE = 'template_5j8inhv'
+const EMAILJS_KEY      = 'pMvYvsy9XX0St2gjU'
 
 const contactItems = [
   {
@@ -28,23 +33,35 @@ const contactItems = [
 export default function Kontakt() {
   const [form, setForm] = useState({ vorname: '', nachname: '', email: '', telefon: '', leistung: '', nachricht: '' })
   const [sent, setSent] = useState(false)
+  const [sending, setSending] = useState(false)
+  const [error, setError] = useState(false)
 
   const update = e => setForm(f => ({ ...f, [e.target.id]: e.target.value }))
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault()
-    const msg = [
-      '📋 *Neue Anfrage über CleanPro Website*',
-      '',
-      `👤 *Name:* ${form.vorname} ${form.nachname}`,
-      `📧 *E-Mail:* ${form.email}`,
-      form.telefon   ? `📞 *Telefon:* ${form.telefon}`     : '',
-      form.leistung  ? `🧹 *Leistung:* ${form.leistung}`   : '',
-      form.nachricht ? `💬 *Nachricht:* ${form.nachricht}` : '',
-    ].filter(Boolean).join('\n')
-
-    window.open('https://wa.me/4901736413198?text=' + encodeURIComponent(msg), '_blank')
-    setSent(true)
+    setSending(true)
+    setError(false)
+    try {
+      await emailjs.send(
+        EMAILJS_SERVICE,
+        EMAILJS_TEMPLATE,
+        {
+          vorname:   form.vorname,
+          nachname:  form.nachname,
+          email:     form.email,
+          telefon:   form.telefon  || '—',
+          leistung:  form.leistung || '—',
+          nachricht: form.nachricht || '—',
+        },
+        EMAILJS_KEY
+      )
+      setSent(true)
+    } catch {
+      setError(true)
+    } finally {
+      setSending(false)
+    }
   }
 
   return (
@@ -142,13 +159,20 @@ export default function Kontakt() {
 
                   <motion.button
                     type="submit"
-                    className="btn-primary w-full py-4 rounded-xl text-base font-semibold text-teal-950"
-                    whileHover={{ scale: 1.02, y: -1 }}
-                    whileTap={{ scale: 0.97 }}
+                    disabled={sending}
+                    className="btn-primary w-full py-4 rounded-xl text-base font-semibold text-teal-950 disabled:opacity-60 disabled:cursor-not-allowed"
+                    whileHover={sending ? {} : { scale: 1.02, y: -1 }}
+                    whileTap={sending ? {} : { scale: 0.97 }}
                     transition={{ type: 'spring', stiffness: 400, damping: 20 }}
                   >
-                    Angebot kostenlos anfragen →
+                    {sending ? 'Wird gesendet…' : 'Angebot kostenlos anfragen →'}
                   </motion.button>
+
+                  {error && (
+                    <p className="text-red-500 text-xs text-center">
+                      Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut oder schreiben Sie uns direkt.
+                    </p>
+                  )}
 
                   <p className="text-teal-500/60 text-xs text-center leading-relaxed">
                     Mit dem Absenden stimmen Sie unserer <a href="#" className="underline hover:text-teal-600 transition-colors">Datenschutzerklärung</a> zu.
