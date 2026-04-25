@@ -1,0 +1,16 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+
+# Temporary test files
+temporary screenshots/
+test-*.mjs
+
+# Environment
+.env
+.env.local
+
+# OS
+.DS_Store
