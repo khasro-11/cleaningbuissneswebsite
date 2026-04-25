@@ -35,7 +35,7 @@ export default function Kontakt() {
   const [honeypot, setHoneypot] = useState('')
   const [sent, setSent] = useState(false)
   const [sending, setSending] = useState(false)
-  const [error, setError] = useState(false)
+  const [error, setError] = useState(null)
 
   const update = e => setForm(f => ({ ...f, [e.target.id]: e.target.value }))
 
@@ -43,7 +43,7 @@ export default function Kontakt() {
     e.preventDefault()
     if (honeypot) return
     setSending(true)
-    setError(false)
+    setError(null)
     try {
       await emailjs.send(
         EMAILJS_SERVICE,
@@ -59,8 +59,10 @@ export default function Kontakt() {
         EMAILJS_KEY
       )
       setSent(true)
-    } catch {
-      setError(true)
+    } catch (err) {
+      console.error('EmailJS error:', err)
+      const msg = err?.text || err?.message || JSON.stringify(err)
+      setError(msg)
     } finally {
       setSending(false)
     }
@@ -184,7 +186,7 @@ export default function Kontakt() {
 
                   {error && (
                     <p className="text-red-500 text-xs text-center">
-                      Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut oder schreiben Sie uns direkt.
+                      Fehler: {error}
                     </p>
                   )}
 
