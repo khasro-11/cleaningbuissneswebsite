@@ -105,7 +105,7 @@ export default function Kontakt() {
 
           {/* Right: form */}
           <motion.div
-            className="bg-white rounded-2xl p-6 sm:p-8 lg:p-10 order-1 md:order-2"
+            className="bg-white rounded-2xl p-4 sm:p-5 lg:p-6 order-1 md:order-2"
             style={{ boxShadow: '0 8px 40px rgba(0,0,0,0.25)' }}
             variants={slideRight}
             initial="hidden"
@@ -114,36 +114,36 @@ export default function Kontakt() {
           >
             {!sent ? (
               <>
-                <h3 className="font-display text-2xl font-bold text-teal-950 mb-1 tracking-tight">Kostenloses Angebot</h3>
-                <p className="text-teal-700/60 text-sm mb-7">Ausfüllen, absenden, fertig — wir melden uns!</p>
+                <h3 className="font-display text-lg font-bold text-teal-950 mb-0.5 tracking-tight">Kostenloses Angebot</h3>
+                <p className="text-teal-700/60 text-xs mb-4">Ausfüllen, absenden, fertig — wir melden uns!</p>
 
-                <form onSubmit={handleSubmit} className="space-y-5">
-                  <div className="grid sm:grid-cols-2 gap-5">
+                <form onSubmit={handleSubmit} className="space-y-3">
+                  <div className="grid sm:grid-cols-2 gap-3">
                     <div>
-                      <label htmlFor="vorname" className="block text-teal-900 text-sm font-medium mb-1.5">Vorname</label>
+                      <label htmlFor="vorname" className="block text-teal-900 text-xs font-medium mb-1">Vorname</label>
                       <input id="vorname" type="text" placeholder="Max" required value={form.vorname} onChange={update}
-                        className="form-input w-full px-4 py-3 rounded-xl text-sm text-teal-950 bg-teal-50/30" />
+                        className="form-input w-full px-3 py-1.5 rounded-lg text-sm text-teal-950 bg-teal-50/30" />
                     </div>
                     <div>
-                      <label htmlFor="nachname" className="block text-teal-900 text-sm font-medium mb-1.5">Nachname</label>
+                      <label htmlFor="nachname" className="block text-teal-900 text-xs font-medium mb-1">Nachname</label>
                       <input id="nachname" type="text" placeholder="Mustermann" required value={form.nachname} onChange={update}
-                        className="form-input w-full px-4 py-3 rounded-xl text-sm text-teal-950 bg-teal-50/30" />
+                        className="form-input w-full px-3 py-1.5 rounded-lg text-sm text-teal-950 bg-teal-50/30" />
                     </div>
                   </div>
                   <div>
-                    <label htmlFor="email" className="block text-teal-900 text-sm font-medium mb-1.5">E-Mail-Adresse</label>
+                    <label htmlFor="email" className="block text-teal-900 text-xs font-medium mb-1">E-Mail-Adresse</label>
                     <input id="email" type="email" placeholder="max@beispiel.de" required value={form.email} onChange={update}
-                      className="form-input w-full px-4 py-3 rounded-xl text-sm text-teal-950 bg-teal-50/30" />
+                      className="form-input w-full px-3 py-1.5 rounded-lg text-sm text-teal-950 bg-teal-50/30" />
                   </div>
                   <div>
-                    <label htmlFor="telefon" className="block text-teal-900 text-sm font-medium mb-1.5">Telefonnummer <span className="text-teal-400/60 font-normal">(optional)</span></label>
+                    <label htmlFor="telefon" className="block text-teal-900 text-xs font-medium mb-1">Telefonnummer <span className="text-teal-400/60 font-normal">(optional)</span></label>
                     <input id="telefon" type="tel" placeholder="+49 155 1143 5755" value={form.telefon} onChange={update}
-                      className="form-input w-full px-4 py-3 rounded-xl text-sm text-teal-950 bg-teal-50/30" />
+                      className="form-input w-full px-3 py-1.5 rounded-lg text-sm text-teal-950 bg-teal-50/30" />
                   </div>
                   <div>
-                    <label htmlFor="leistung" className="block text-teal-900 text-sm font-medium mb-1.5">Gewünschte Leistung</label>
+                    <label htmlFor="leistung" className="block text-teal-900 text-xs font-medium mb-1">Gewünschte Leistung</label>
                     <select id="leistung" required value={form.leistung} onChange={update}
-                      className="form-input w-full px-4 py-3 rounded-xl text-sm text-teal-950 bg-teal-50/30 appearance-none cursor-pointer">
+                      className="form-input w-full px-3 py-1.5 rounded-lg text-sm text-teal-950 bg-teal-50/30 appearance-none cursor-pointer">
                       <option value="" disabled>Bitte wählen...</option>
                       <option>Büroreinigung</option>
                       <option>Gebäudereinigung</option>
@@ -154,9 +154,9 @@ export default function Kontakt() {
                     </select>
                   </div>
                   <div>
-                    <label htmlFor="nachricht" className="block text-teal-900 text-sm font-medium mb-1.5">Nachricht</label>
-                    <textarea id="nachricht" rows={3} placeholder="Beschreiben Sie kurz Ihren Reinigungsbedarf..." value={form.nachricht} onChange={update}
-                      className="form-input w-full px-4 py-3 rounded-xl text-sm text-teal-950 bg-teal-50/30 resize-none" />
+                    <label htmlFor="nachricht" className="block text-teal-900 text-xs font-medium mb-1">Nachricht</label>
+                    <textarea id="nachricht" rows={2} placeholder="Beschreiben Sie kurz Ihren Reinigungsbedarf..." value={form.nachricht} onChange={update}
+                      className="form-input w-full px-3 py-1.5 rounded-lg text-sm text-teal-950 bg-teal-50/30 resize-none" />
                   </div>
 
                   {/* Honeypot — hidden from humans, filled by bots */}
@@ -174,7 +174,7 @@ export default function Kontakt() {
                   <motion.button
                     type="submit"
                     disabled={sending}
-                    className="btn-primary w-full py-4 rounded-xl text-base font-semibold text-teal-950 disabled:opacity-60 disabled:cursor-not-allowed"
+                    className="btn-primary w-full py-2.5 rounded-lg text-sm font-semibold text-teal-950 disabled:opacity-60 disabled:cursor-not-allowed"
                     whileHover={sending ? {} : { scale: 1.02, y: -1 }}
                     whileTap={sending ? {} : { scale: 0.97 }}
                     transition={{ type: 'spring', stiffness: 400, damping: 20 }}
