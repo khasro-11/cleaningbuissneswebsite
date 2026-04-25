@@ -3,9 +3,9 @@ import { motion } from 'framer-motion'
 import emailjs from '@emailjs/browser'
 import { fadeUp, slideLeft, slideRight, stagger, viewport } from '../utils/animations'
 
-const EMAILJS_SERVICE  = import.meta.env.VITE_EMAILJS_SERVICE
-const EMAILJS_TEMPLATE = import.meta.env.VITE_EMAILJS_TEMPLATE
-const EMAILJS_KEY      = import.meta.env.VITE_EMAILJS_KEY
+const EMAILJS_SERVICE  = import.meta.env.VITE_EMAILJS_SERVICE  || 'service_b5s1o4r'
+const EMAILJS_TEMPLATE = import.meta.env.VITE_EMAILJS_TEMPLATE || 'template_fxi5j53'
+const EMAILJS_KEY      = import.meta.env.VITE_EMAILJS_KEY      || 'pMvYvsy9XX0St2gjU'
 
 const contactItems = [
   {
@@ -186,7 +186,7 @@ export default function Kontakt() {
 
                   {error && (
                     <p className="text-red-500 text-xs text-center">
-                      Fehler: {error}
+                      Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut oder schreiben Sie uns direkt.
                     </p>
                   )}
 
