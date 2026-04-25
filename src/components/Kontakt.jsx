@@ -3,9 +3,9 @@ import { motion } from 'framer-motion'
 import emailjs from '@emailjs/browser'
 import { fadeUp, slideLeft, slideRight, stagger, viewport } from '../utils/animations'
 
-const EMAILJS_SERVICE  = 'service_b5s1o4r'
-const EMAILJS_TEMPLATE = 'template_fxi5j53'
-const EMAILJS_KEY      = 'pMvYvsy9XX0St2gjU'
+const EMAILJS_SERVICE  = import.meta.env.VITE_EMAILJS_SERVICE
+const EMAILJS_TEMPLATE = import.meta.env.VITE_EMAILJS_TEMPLATE
+const EMAILJS_KEY      = import.meta.env.VITE_EMAILJS_KEY
 
 const contactItems = [
   {
@@ -32,6 +32,7 @@ const contactItems = [
 
 export default function Kontakt() {
   const [form, setForm] = useState({ vorname: '', nachname: '', email: '', telefon: '', leistung: '', nachricht: '' })
+  const [honeypot, setHoneypot] = useState('')
   const [sent, setSent] = useState(false)
   const [sending, setSending] = useState(false)
   const [error, setError] = useState(false)
@@ -40,6 +41,7 @@ export default function Kontakt() {
 
   const handleSubmit = async e => {
     e.preventDefault()
+    if (honeypot) return
     setSending(true)
     setError(false)
     try {
@@ -156,6 +158,18 @@ export default function Kontakt() {
                     <textarea id="nachricht" rows={3} placeholder="Beschreiben Sie kurz Ihren Reinigungsbedarf..." value={form.nachricht} onChange={update}
                       className="form-input w-full px-4 py-3 rounded-xl text-sm text-teal-950 bg-teal-50/30 resize-none" />
                   </div>
+
+                  {/* Honeypot — hidden from humans, filled by bots */}
+                  <input
+                    type="text"
+                    name="website"
+                    value={honeypot}
+                    onChange={e => setHoneypot(e.target.value)}
+                    tabIndex={-1}
+                    autoComplete="off"
+                    aria-hidden="true"
+                    style={{ position: 'absolute', left: '-9999px', width: '1px', height: '1px', opacity: 0 }}
+                  />
 
                   <motion.button
                     type="submit"
