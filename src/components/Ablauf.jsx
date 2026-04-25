@@ -7,6 +7,8 @@ const steps = [
   { num: '03', title: 'Loslegen & entspannen', desc: 'Wir kümmern uns um alles. Sie lehnen sich zurück und genießen Ihr makelloses Ergebnis.' },
 ]
 
+// Ablauf.jsx
+
 export default function Ablauf() {
   return (
     <section id="ablauf" className="py-16 md:py-24 lg:py-32" style={{ background: '#f8f6f1' }}>
