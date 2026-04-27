@@ -69,6 +69,7 @@ export default function Nav() {
               background: SKY, color: INK, padding: '7px 14px',
               borderRadius: 999, fontWeight: 700, fontSize: 13,
               textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 4,
+              whiteSpace: 'nowrap',
             }}
             whileHover={{ scale: 1.04, y: -1 }}
             whileTap={{ scale: 0.96 }}
