@@ -5,7 +5,6 @@ import Ablauf from './components/Ablauf'
 import Vorteile from './components/Vorteile'
 import Kontakt from './components/Kontakt'
 import Footer from './components/Footer'
-import StickyMobileCTA from './components/StickyMobileCTA'
 
 export default function App() {
   return (
@@ -17,7 +16,6 @@ export default function App() {
       <Vorteile />
       <Kontakt />
       <Footer />
-      <StickyMobileCTA />
     </>
   )
 }

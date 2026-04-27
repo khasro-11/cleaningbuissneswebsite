@@ -34,7 +34,7 @@ export default function Footer() {
 
       <style>{`
         @media (max-width: 767px) {
-          .footer-inner { padding: 0 20px 100px !important; }
+          .footer-inner { padding: 0 20px 40px !important; }
           .footer-row { flex-direction: column; align-items: center !important; text-align: center; gap: 12px !important; }
         }
       `}</style>

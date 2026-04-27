@@ -118,9 +118,9 @@ export default function Hero() {
             <span style={{ width: 7, height: 7, borderRadius: 99, background: '#22c55e', display: 'block' }} />
             <span style={{ fontSize: 11, fontWeight: 600, color: INK_SOFT }}>Diese Woche · 4 Termine frei</span>
           </div>
-          <h1 style={{ fontSize: 38, lineHeight: 1.0, fontWeight: 800, margin: 0, letterSpacing: '-0.035em', color: INK }}>
+          <h1 style={{ fontSize: 'clamp(26px, 8vw, 36px)', lineHeight: 1.05, fontWeight: 800, margin: 0, letterSpacing: '-0.035em', color: INK }}>
             Reinigung,<br />
-            die Verwalter <span style={{ color: NAVY }}>weiter&shy;empfehlen.</span>
+            die Verwalter <span style={{ color: NAVY }}>weiterempfehlen.</span>
           </h1>
           <p style={{ fontSize: 14, color: INK_SOFT, lineHeight: 1.5, margin: 0 }}>
             Gewerbe · Fenster · Airbnb · Gebäude — ein Team, ein Ansprechpartner, faire Preise.
