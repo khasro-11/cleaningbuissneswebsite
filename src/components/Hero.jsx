@@ -1,101 +1,190 @@
 import { motion } from 'framer-motion'
-import { fadeUp, stagger, viewport } from '../utils/animations'
+import HeroAnimation from './HeroAnimation'
 
-const stats = [
-  { num: '500+', label: 'Zufriedene Kunden' },
-  { num: '10+',  label: 'Jahre Erfahrung' },
-  { num: '98%',  label: 'Empfehlungsrate' },
-  { num: '24h',  label: 'Reaktionszeit' },
-]
+const INK = '#0e1f33'
+const INK_SOFT = '#3a4a5e'
+const NAVY = '#1f3a5f'
+const SKY = '#7fb3d5'
+const PAPER = '#f5f7f8'
+const PAPER_WARM = '#eef2f5'
+const LINE = 'rgba(14,31,51,0.10)'
+
+function Icon({ name, size = 16, color = INK }) {
+  const p = { width: size, height: size, viewBox: '0 0 24 24', fill: 'none', stroke: color, strokeWidth: 1.6, strokeLinecap: 'round', strokeLinejoin: 'round' }
+  if (name === 'arrow') return <svg {...p}><line x1="4" y1="12" x2="20" y2="12"/><polyline points="14 6 20 12 14 18"/></svg>
+  if (name === 'phone') return <svg {...p}><path d="M5 4h4l2 5-3 2a12 12 0 0 0 5 5l2-3 5 2v4a2 2 0 0 1-2 2A17 17 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>
+  if (name === 'star')  return <svg {...p} fill={color} stroke="none"><polygon points="12 3 14.5 9 21 9.5 16 14 17.5 21 12 17.5 6.5 21 8 14 3 9.5 9.5 9"/></svg>
+  return null
+}
 
 export default function Hero() {
   return (
-    <section
-      className="relative min-h-screen flex items-center overflow-hidden grain"
-      style={{ background: 'linear-gradient(155deg, #0a2a30 0%, #0d3a42 35%, #19636e 70%, #0d3a42 100%)' }}
-    >
-      {/* Blobs */}
-      <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse 60% 50% at 20% 40%, rgba(42,147,159,0.25) 0%, transparent 70%)' }} />
-      <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse 50% 60% at 80% 70%, rgba(212,160,48,0.12) 0%, transparent 70%)' }} />
+    <section id="hero" style={{ background: PAPER }}>
 
-      <div className="relative max-w-6xl mx-auto px-6 lg:px-8 pt-28 pb-20 w-full">
-        <motion.div className="max-w-2xl" variants={stagger} initial="hidden" animate="visible">
+      {/* ── DESKTOP bento grid (≥ 768px) ── */}
+      <div className="hero-desktop" style={{ paddingTop: 96 }}>
+        <div style={{ maxWidth: 1280, margin: '0 auto', padding: '40px 40px 24px' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(12, 1fr)', gridAutoRows: '110px', gap: 14 }}>
 
-          {/* Trust badge */}
-          <motion.div
-            className="trust-badge inline-flex items-center gap-2 px-4 py-2 mb-8"
-            variants={fadeUp}
-          >
-            <span className="w-1.5 h-1.5 rounded-full bg-gold-400 flex-shrink-0" />
-            <span className="text-white/80 text-xs font-medium tracking-wide uppercase">Über 500 zufriedene Kunden in Deutschland</span>
-          </motion.div>
-
-          {/* Headline */}
-          <motion.h1
-            className="font-display text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold text-white leading-tight tracking-tighter2 mb-6"
-            variants={fadeUp}
-          >
-            Sauberkeit,<br />
-            <span style={{ background: 'linear-gradient(135deg,#e8bc54,#f0d080)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
-              die überzeugt.
-            </span>
-          </motion.h1>
-
-          {/* Subtext */}
-          <motion.p className="text-white/70 text-base sm:text-lg leading-relaxed2 mb-10 max-w-md" variants={fadeUp}>
-            Professionelle Reinigungsdienstleistungen für Büros, Wohnungen und Gewerbeimmobilien — zuverlässig, gründlich und auf Ihren Bedarf zugeschnitten.
-          </motion.p>
-
-          {/* CTAs */}
-          <motion.div className="flex flex-col sm:flex-row gap-4" variants={fadeUp}>
-            <motion.a
-              href="#kontakt"
-              className="btn-primary px-8 py-4 rounded-xl text-base font-semibold text-teal-950 text-center no-underline"
-              whileHover={{ scale: 1.03, y: -2 }}
-              whileTap={{ scale: 0.97 }}
-              transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+            {/* Hero copy — 7 cols × 4 rows */}
+            <motion.div
+              style={{
+                gridColumn: 'span 7', gridRow: 'span 4',
+                background: PAPER_WARM, borderRadius: 24, padding: 40,
+                display: 'flex', flexDirection: 'column', justifyContent: 'space-between',
+                position: 'relative', overflow: 'hidden',
+              }}
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             >
-              Kostenloses Angebot
-            </motion.a>
-            <motion.a
-              href="#leistungen"
-              className="btn-outline px-8 py-4 rounded-xl text-base font-semibold text-center no-underline"
-              whileHover={{ background: 'rgba(255,255,255,0.12)', borderColor: 'white', y: -2 }}
-              whileTap={{ scale: 0.97 }}
-              transition={{ type: 'spring', stiffness: 400, damping: 20 }}
-            >
-              Unsere Leistungen
-            </motion.a>
-          </motion.div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <span style={{ width: 8, height: 8, borderRadius: 99, background: '#22c55e', display: 'block' }} />
+                <span style={{ fontSize: 12, fontWeight: 600, color: INK_SOFT, letterSpacing: '0.04em' }}>
+                  Diese Woche · 4 Termine frei
+                </span>
+              </div>
+              <h1 style={{ fontSize: 'clamp(48px, 5.5vw, 76px)', lineHeight: 0.98, fontWeight: 800, margin: 0, letterSpacing: '-0.035em', color: INK }}>
+                Reinigung,<br />
+                die Verwalter <span style={{ color: NAVY }}>weiter&shy;empfehlen.</span>
+              </h1>
+              <div>
+                <p style={{ fontSize: 16, color: INK_SOFT, lineHeight: 1.55, maxWidth: 480, margin: '0 0 24px 0' }}>
+                  Gewerbe · Fenster · Airbnb · Gebäude — ein Team, ein Ansprechpartner, faire Preise. Berlin und Umland.
+                </p>
+                <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+                  <motion.a href="#kontakt" style={{ background: INK, color: PAPER, padding: '14px 22px', borderRadius: 999, fontWeight: 600, fontSize: 14, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 8 }} whileHover={{ scale: 1.03, y: -1 }} whileTap={{ scale: 0.97 }} transition={{ type: 'spring', stiffness: 400, damping: 20 }}>
+                    Angebot in 60 Sek. <Icon name="arrow" size={14} color={PAPER} />
+                  </motion.a>
+                  <a href="tel:+4915511435755" style={{ background: 'transparent', color: INK, padding: '14px 22px', borderRadius: 999, fontWeight: 600, fontSize: 14, textDecoration: 'none', border: `1px solid ${LINE}`, display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+                    <Icon name="phone" size={14} color={INK} /> +49 155 1143 5755
+                  </a>
+                </div>
+              </div>
+            </motion.div>
 
-          {/* Stats */}
-          <motion.div className="grid grid-cols-2 sm:flex sm:flex-wrap gap-6 sm:gap-8 mt-16" variants={stagger}>
-            {stats.map(s => (
-              <motion.div
-                key={s.num}
-                className="bg-white/5 sm:bg-transparent rounded-xl sm:rounded-none p-4 sm:p-0 border border-white/10 sm:border-0"
-                variants={fadeUp}
-              >
-                <p className="text-white text-3xl font-display font-bold">{s.num}</p>
-                <p className="text-white/55 text-sm mt-0.5">{s.label}</p>
-              </motion.div>
-            ))}
+            {/* Animation — 5 cols × 4 rows */}
+            <motion.div style={{ gridColumn: 'span 5', gridRow: 'span 4', background: NAVY, borderRadius: 24, overflow: 'hidden', position: 'relative' }} initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}>
+              <div style={{ position: 'absolute', inset: 0 }}><HeroAnimation /></div>
+              <div style={{ position: 'absolute', top: 20, left: 20, background: 'rgba(14,31,51,0.65)', backdropFilter: 'blur(8px)', color: PAPER, padding: '8px 14px', borderRadius: 99, fontSize: 12, fontWeight: 600, display: 'flex', alignItems: 'center', gap: 8 }}>
+                <span style={{ width: 6, height: 6, borderRadius: 99, background: '#ff5b5b', display: 'block' }} />
+                REC · Live-Ergebnis
+              </div>
+            </motion.div>
+
+            {/* Stat: 340+ */}
+            <motion.div style={{ gridColumn: 'span 4', gridRow: 'span 2', background: NAVY, color: PAPER, borderRadius: 20, padding: 24, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}>
+              <div style={{ fontSize: 12, color: SKY, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase' }}>Aktiv betreut</div>
+              <div>
+                <div style={{ fontSize: 56, fontWeight: 800, letterSpacing: '-0.04em', lineHeight: 1 }}>340<span style={{ color: SKY }}>+</span></div>
+                <div style={{ fontSize: 13, color: 'rgba(245,247,248,0.65)', marginTop: 6 }}>Objekte in Berlin &amp; Brandenburg</div>
+              </div>
+            </motion.div>
+
+            {/* Stat: <4h */}
+            <motion.div style={{ gridColumn: 'span 4', gridRow: 'span 2', background: SKY, color: INK, borderRadius: 20, padding: 24, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.25, ease: [0.22, 1, 0.36, 1] }}>
+              <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', opacity: 0.7 }}>Antwortzeit</div>
+              <div>
+                <div style={{ fontSize: 56, fontWeight: 800, letterSpacing: '-0.04em', lineHeight: 1 }}>&lt; 4h</div>
+                <div style={{ fontSize: 13, opacity: 0.75, marginTop: 6 }}>Werktags zwischen 7–19 Uhr</div>
+              </div>
+            </motion.div>
+
+            {/* Stat: rating */}
+            <motion.div style={{ gridColumn: 'span 4', gridRow: 'span 2', background: PAPER_WARM, borderRadius: 20, padding: 24, display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+                {[0,1,2,3,4].map(i => <Icon key={i} name="star" size={16} color={NAVY} />)}
+                <span style={{ fontSize: 13, fontWeight: 700, marginLeft: 4 }}>4,9</span>
+              </div>
+              <div>
+                <div style={{ fontSize: 18, fontWeight: 700, lineHeight: 1.3, letterSpacing: '-0.01em', color: INK }}>„Endlich ein Team, das mitdenkt."</div>
+                <div style={{ fontSize: 12, color: INK_SOFT, marginTop: 8 }}>— Maria H., Hausverwaltung</div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </div>
+
+      {/* ── MOBILE layout (< 768px) ── */}
+      <div className="hero-mobile" style={{ padding: '76px 12px 20px', display: 'flex', flexDirection: 'column', gap: 10 }}>
+
+        {/* Copy block */}
+        <motion.div
+          style={{ background: PAPER_WARM, borderRadius: 22, padding: 24, display: 'flex', flexDirection: 'column', gap: 18 }}
+          initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <span style={{ width: 7, height: 7, borderRadius: 99, background: '#22c55e', display: 'block' }} />
+            <span style={{ fontSize: 11, fontWeight: 600, color: INK_SOFT }}>Diese Woche · 4 Termine frei</span>
+          </div>
+          <h1 style={{ fontSize: 38, lineHeight: 1.0, fontWeight: 800, margin: 0, letterSpacing: '-0.035em', color: INK }}>
+            Reinigung,<br />
+            die Verwalter <span style={{ color: NAVY }}>weiter&shy;empfehlen.</span>
+          </h1>
+          <p style={{ fontSize: 14, color: INK_SOFT, lineHeight: 1.5, margin: 0 }}>
+            Gewerbe · Fenster · Airbnb · Gebäude — ein Team, ein Ansprechpartner, faire Preise.
+          </p>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            <a href="#kontakt" style={{ background: INK, color: PAPER, padding: '14px 18px', borderRadius: 14, fontWeight: 700, fontSize: 14, textDecoration: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
+              Angebot in 60 Sek. <Icon name="arrow" size={14} color={PAPER} />
+            </a>
+            <a href="tel:+4915511435755" style={{ background: 'transparent', color: INK, padding: '14px 18px', borderRadius: 14, fontWeight: 700, fontSize: 14, textDecoration: 'none', border: `1px solid ${LINE}`, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8 }}>
+              <Icon name="phone" size={14} color={INK} /> +49 155 1143 5755
+            </a>
+          </div>
+        </motion.div>
+
+        {/* Animation block */}
+        <motion.div
+          style={{ background: NAVY, borderRadius: 22, overflow: 'hidden', position: 'relative', aspectRatio: '4 / 5' }}
+          initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <div style={{ position: 'absolute', inset: 0 }}><HeroAnimation /></div>
+          <div style={{ position: 'absolute', top: 14, left: 14, background: 'rgba(14,31,51,0.7)', backdropFilter: 'blur(8px)', color: PAPER, padding: '6px 10px', borderRadius: 99, fontSize: 10, fontWeight: 700, display: 'flex', alignItems: 'center', gap: 6 }}>
+            <span style={{ width: 5, height: 5, borderRadius: 99, background: '#ff5b5b', display: 'block' }} />
+            REC · Live
+          </div>
+        </motion.div>
+
+        {/* Stat tiles */}
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
+          <motion.div style={{ background: NAVY, color: PAPER, borderRadius: 18, padding: 18, display: 'flex', flexDirection: 'column', gap: 16, minHeight: 130 }} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.2 }}>
+            <div style={{ fontSize: 10, color: SKY, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase' }}>Aktiv betreut</div>
+            <div style={{ marginTop: 'auto' }}>
+              <div style={{ fontSize: 38, fontWeight: 800, letterSpacing: '-0.04em', lineHeight: 1 }}>340<span style={{ color: SKY }}>+</span></div>
+              <div style={{ fontSize: 11, color: 'rgba(245,247,248,0.7)', marginTop: 4 }}>Objekte</div>
+            </div>
           </motion.div>
+          <motion.div style={{ background: SKY, color: INK, borderRadius: 18, padding: 18, display: 'flex', flexDirection: 'column', gap: 16, minHeight: 130 }} initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.25 }}>
+            <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', opacity: 0.7 }}>Antwortzeit</div>
+            <div style={{ marginTop: 'auto' }}>
+              <div style={{ fontSize: 38, fontWeight: 800, letterSpacing: '-0.04em', lineHeight: 1 }}>&lt; 4h</div>
+              <div style={{ fontSize: 11, opacity: 0.75, marginTop: 4 }}>Werktags</div>
+            </div>
+          </motion.div>
+        </div>
+
+        {/* Quote tile */}
+        <motion.div
+          style={{ background: PAPER_WARM, borderRadius: 18, padding: 20, display: 'flex', flexDirection: 'column', gap: 10 }}
+          initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+        >
+          <div style={{ display: 'flex', alignItems: 'center', gap: 4 }}>
+            {[0,1,2,3,4].map(i => <Icon key={i} name="star" size={13} color={NAVY} />)}
+            <span style={{ fontSize: 12, fontWeight: 700, marginLeft: 4 }}>4,9</span>
+          </div>
+          <div style={{ fontSize: 15, fontWeight: 700, lineHeight: 1.35, letterSpacing: '-0.01em', color: INK }}>„Endlich ein Team, das mitdenkt."</div>
+          <div style={{ fontSize: 11, color: INK_SOFT }}>— Maria H., Hausverwaltung</div>
         </motion.div>
       </div>
 
-      {/* Scroll indicator */}
-      <motion.div
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 text-white/30"
-        initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.2, duration: 0.6 }}
-      >
-        <span className="text-xs tracking-widest uppercase">Scrollen</span>
-        <motion.svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"
-          animate={{ y: [0, 5, 0] }} transition={{ repeat: Infinity, duration: 1.4, ease: 'easeInOut' }}
-        >
-          <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7"/>
-        </motion.svg>
-      </motion.div>
+      <style>{`
+        @media (min-width: 768px) { .hero-mobile { display: none !important; } }
+        @media (max-width: 767px) { .hero-desktop { display: none !important; } }
+      `}</style>
     </section>
   )
 }

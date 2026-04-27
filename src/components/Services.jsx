@@ -1,146 +1,171 @@
 import { motion } from 'framer-motion'
 import { fadeUp, stagger, viewport } from '../utils/animations'
 
-const Check = () => (
-  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2a939f" strokeWidth="2.5">
-    <path d="M20 6L9 17l-5-5"/>
-  </svg>
-)
+const INK = '#0e1f33'
+const INK_SOFT = '#3a4a5e'
+const NAVY = '#1f3a5f'
+const SKY = '#7fb3d5'
+const PAPER = '#f5f7f8'
+const PAPER_WARM = '#eef2f5'
+const LINE = 'rgba(14,31,51,0.10)'
+
+function Icon({ name, size = 24, color = INK }) {
+  const p = { width: size, height: size, viewBox: '0 0 24 24', fill: 'none', stroke: color, strokeWidth: 1.6, strokeLinecap: 'round', strokeLinejoin: 'round' }
+  switch (name) {
+    case 'building': return <svg {...p}><rect x="4" y="3" width="16" height="18"/><line x1="9" y1="7" x2="9" y2="9"/><line x1="13" y1="7" x2="13" y2="9"/><line x1="9" y1="12" x2="9" y2="14"/><line x1="13" y1="12" x2="13" y2="14"/><rect x="10" y="17" width="4" height="4"/></svg>
+    case 'window':   return <svg {...p}><rect x="3" y="3" width="18" height="18" rx="1"/><line x1="12" y1="3" x2="12" y2="21"/><line x1="3" y1="12" x2="21" y2="12"/></svg>
+    case 'key':      return <svg {...p}><circle cx="8" cy="14" r="4"/><line x1="11" y1="11" x2="20" y2="2"/><line x1="17" y1="5" x2="20" y2="8"/><line x1="14" y1="8" x2="17" y2="11"/></svg>
+    case 'spray':    return <svg {...p}><rect x="7" y="9" width="9" height="12" rx="1"/><path d="M9 9V5h5v4"/><path d="M14 5h4M14 3h4M14 7h4"/></svg>
+    case 'arrow':    return <svg {...p}><line x1="4" y1="12" x2="20" y2="12"/><polyline points="14 6 20 12 14 18"/></svg>
+    default:         return null
+  }
+}
 
 const services = [
-  {
-    gradient: 'linear-gradient(135deg,#0d3a42 0%,#19636e 50%,#2a939f 100%)',
-    radial: 'radial-gradient(ellipse 80% 80% at 30% 40%,rgba(255,255,255,0.07) 0%,transparent 70%)',
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.6">
-        <rect x="2" y="3" width="20" height="14" rx="2"/>
-        <path d="M8 21h8M12 17v4"/>
-      </svg>
-    ),
-    ghostIcon: (
-      <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.18)" strokeWidth="1">
-        <rect x="2" y="3" width="20" height="14" rx="2"/>
-        <path d="M8 21h8M12 17v4"/>
-      </svg>
-    ),
-    title: 'Büroreinigung',
-    desc: 'Saubere Arbeitsumgebungen steigern die Produktivität. Wir reinigen Büros, Konferenzräume und Gemeinschaftsflächen — diskret und termingerecht.',
-    items: ['Tägliche & wöchentliche Reinigung', 'Sanitäranlagen & Küchen', 'Auf Wunsch außerhalb der Bürozeiten'],
-  },
-  {
-    gradient: 'linear-gradient(135deg,#19636e 0%,#2a939f 50%,#46aebb 100%)',
-    radial: 'radial-gradient(ellipse 80% 80% at 70% 30%,rgba(255,255,255,0.1) 0%,transparent 70%)',
-    badge: 'Beliebt',
-    cardBg: 'linear-gradient(160deg, #f8fffe 0%, #ffffff 100%)',
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.6">
-        <rect x="2" y="7" width="20" height="15" rx="1"/>
-        <path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/>
-        <line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/>
-      </svg>
-    ),
-    ghostIcon: (
-      <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.18)" strokeWidth="1">
-        <rect x="2" y="7" width="20" height="15" rx="1"/>
-        <path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/>
-        <line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/>
-      </svg>
-    ),
-    title: 'Gebäudereinigung',
-    desc: 'Sauberkeit für Bürogebäude, Wohnanlagen und Gewerbeimmobilien — regelmäßig, zuverlässig und nach höchsten Standards.',
-    items: ['Treppenhäuser & Gemeinschaftsflächen', 'Bürogebäude & Gewerbeimmobilien', 'Individuelle Reinigungsintervalle'],
-  },
-  {
-    gradient: 'linear-gradient(135deg,#0a2a30 0%,#0d3a42 50%,#19636e 100%)',
-    radial: 'radial-gradient(ellipse 80% 80% at 50% 20%,rgba(212,160,48,0.12) 0%,transparent 70%)',
-    icon: (
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.6">
-        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-      </svg>
-    ),
-    ghostIcon: (
-      <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.18)" strokeWidth="1">
-        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-      </svg>
-    ),
-    title: 'Grund- & Tiefenreinigung',
-    desc: 'Wenn es mehr braucht als den Standard. Unsere Grundreinigung beseitigt hartnäckige Verschmutzungen und bringt Ihre Räume wieder zum Strahlen.',
-    items: ['Ein- & Auszugsreinigung', 'Baureinigung nach Renovierung', 'Fliesen-, Parkett- & Teppichpflege'],
-  },
+  { icon: 'building', title: 'Gewerbe', bodyDesktop: 'Büros, Praxen, Studios. Wöchentlich oder täglich.',  bodyMobile: 'Büros, Praxen. Wöchentlich oder täglich.', tag: 'ab 38 €/h',    dark: true },
+  { icon: 'window',   title: 'Fenster', bodyDesktop: 'Streifenfrei innen + außen, alle Höhen.',             bodyMobile: 'Streifenfrei innen + außen.',             tag: 'ab 4,50 €/m²', dark: false },
+  { icon: 'key',      title: 'Airbnb',  bodyDesktop: 'Wechsel zwischen Gästen, Wäsche & Foto-Check.',      bodyMobile: 'Wechsel, Wäsche, Foto-Check.',            tag: 'ab 65 € flat', dark: false },
+  { icon: 'spray',    title: 'Gebäude', bodyDesktop: 'Treppenhaus, Hof, Eingang. Wöchentlich.',             bodyMobile: 'Treppenhaus, Hof, Eingang.',              tag: 'auf Anfrage',  dark: false },
 ]
-
-const pills = ['Fensterreinigung', 'Treppenhaus', 'Kliniken & Praxen', 'Gastronomie', 'Eventaufbau & -abbau', 'Schädlingsbekämpfung']
 
 export default function Services() {
   return (
-    <section id="leistungen" className="py-16 md:py-24 lg:py-32 grain" style={{ background: 'linear-gradient(180deg, #ffffff 0%, #f4fcfc 60%, #edf8f9 100%)' }}>
-      <div className="max-w-6xl mx-auto px-6 lg:px-8">
+    <section id="leistungen" style={{ background: PAPER }}>
+      <div style={{ maxWidth: 1280, margin: '0 auto', padding: '24px 40px' }} className="services-container">
 
-        <motion.div className="text-center mb-16" variants={stagger} initial="hidden" whileInView="visible" viewport={viewport}>
-          <motion.span className="text-teal-600 text-sm font-semibold tracking-widest uppercase mb-3 block" variants={fadeUp}>Was wir anbieten</motion.span>
-          <motion.h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-teal-950 tracking-tighter2 mb-4" variants={fadeUp}>
-            Unsere Leistungen
-          </motion.h2>
-          <motion.p className="text-teal-700/70 text-lg leading-relaxed2 max-w-xl mx-auto" variants={fadeUp}>
-            Maßgeschneiderte Reinigungslösungen für jeden Bedarf — mit Qualitätssicherung und festen Ansprechpartnern.
+        <motion.div
+          style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 28 }}
+          className="services-header"
+          variants={stagger} initial="hidden" whileInView="visible" viewport={viewport}
+        >
+          <div>
+            <motion.div style={{ fontSize: 12, fontWeight: 700, color: NAVY, letterSpacing: '0.12em', textTransform: 'uppercase' }} variants={fadeUp}>
+              Leistungen
+            </motion.div>
+            <motion.h2 style={{ fontSize: 'clamp(28px, 3vw, 44px)', fontWeight: 800, margin: '8px 0 0', letterSpacing: '-0.03em', color: INK }} variants={fadeUp}>
+              Vier Bereiche. Ein Vertrag.
+            </motion.h2>
+          </div>
+          <motion.p style={{ fontSize: 13, color: INK_SOFT, maxWidth: 320, lineHeight: 1.55, textAlign: 'right' }} variants={fadeUp} className="services-subtitle">
+            Bündeln Sie alle Reinigungsarbeiten bei einem Anbieter — eine Rechnung, ein Ansprechpartner, eine Telefonnummer.
           </motion.p>
         </motion.div>
 
-        <motion.div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8" variants={stagger} initial="hidden" whileInView="visible" viewport={viewport}>
+        <motion.div
+          className="services-grid"
+          variants={stagger} initial="hidden" whileInView="visible" viewport={viewport}
+        >
           {services.map((s, i) => (
             <motion.div
               key={s.title}
-              className="card-elevated rounded-2xl overflow-hidden cursor-default"
+              className="service-card"
+              style={{
+                background: s.dark ? INK : PAPER_WARM,
+                color: s.dark ? PAPER : INK,
+                borderRadius: 20,
+              }}
               variants={fadeUp}
-              whileHover={{ y: -8, boxShadow: '0 2px 4px rgba(13,58,66,0.06), 0 8px 24px rgba(13,58,66,0.12), 0 32px 64px rgba(13,58,66,0.10)' }}
-              whileTap={{ y: -2, scale: 0.99 }}
+              whileHover={{ y: -6 }}
               transition={{ type: 'spring', stiffness: 280, damping: 22 }}
             >
-              {/* Card header */}
-              <div className="relative h-44 overflow-hidden flex items-center justify-center" style={{ background: s.gradient }}>
-                <div className="absolute inset-0 pointer-events-none" style={{ background: s.radial }} />
-                <div className="absolute right-4 bottom-4">{s.ghostIcon}</div>
-                <div className="relative z-10">
-                  <div className="w-14 h-14 rounded-2xl flex items-center justify-center" style={{ background: 'rgba(255,255,255,0.12)', border: '1px solid rgba(255,255,255,0.2)' }}>
-                    {s.icon}
-                  </div>
-                </div>
-                {s.badge && (
-                  <div className="absolute top-4 right-4 bg-gold-400 text-teal-950 text-xs font-bold px-3 py-1 rounded-full">{s.badge}</div>
-                )}
+              {/* Icon */}
+              <div className="service-icon-box" style={{
+                borderRadius: 14,
+                background: s.dark ? 'rgba(127,179,213,0.18)' : PAPER,
+                border: s.dark ? 'none' : `1px solid ${LINE}`,
+                display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
+              }}>
+                <Icon name={s.icon} color={s.dark ? SKY : NAVY} className="service-icon-svg" />
               </div>
 
-              {/* Card body */}
-              <div className="p-7" style={s.cardBg ? { background: s.cardBg } : {}}>
-                <h3 className="font-display text-xl font-bold text-teal-950 mb-2 tracking-tight">{s.title}</h3>
-                <p className="text-teal-700/70 text-sm leading-relaxed2 mb-5">{s.desc}</p>
-                <ul className="space-y-2">
-                  {s.items.map(item => (
-                    <li key={item} className="flex items-center gap-2.5 text-sm text-teal-800">
-                      <Check />{item}
-                    </li>
-                  ))}
-                </ul>
+              {/* Content */}
+              <div className="service-content">
+                {/* Title row (title + tag shown on mobile) */}
+                <div className="service-title-row">
+                  <div className="service-title" style={{ fontWeight: 800, letterSpacing: '-0.02em' }}>{s.title}</div>
+                  <div className="service-tag-mobile" style={{ fontSize: 11, fontWeight: 700, color: s.dark ? SKY : NAVY, whiteSpace: 'nowrap' }}>{s.tag}</div>
+                </div>
+                <div className="service-body" style={{ lineHeight: 1.5, color: s.dark ? 'rgba(245,247,248,0.7)' : INK_SOFT }}>
+                  <span className="body-desktop">{s.bodyDesktop}</span>
+                  <span className="body-mobile">{s.bodyMobile}</span>
+                </div>
+              </div>
+
+              {/* Desktop footer: tag + arrow */}
+              <div className="service-footer" style={{
+                borderTop: `1px solid ${s.dark ? 'rgba(255,255,255,0.1)' : LINE}`,
+                display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+              }}>
+                <span style={{ fontSize: 13, fontWeight: 700, color: s.dark ? SKY : NAVY }}>{s.tag}</span>
+                <Icon name="arrow" size={16} color={s.dark ? PAPER : INK} />
               </div>
             </motion.div>
           ))}
         </motion.div>
-
-        {/* Pill tags */}
-        <motion.div className="mt-12 flex flex-wrap gap-3 justify-center" variants={stagger} initial="hidden" whileInView="visible" viewport={viewport}>
-          {pills.map(p => (
-            <motion.span
-              key={p}
-              className="bg-teal-50 text-teal-700 text-sm font-medium px-4 py-2 rounded-full border border-teal-100 cursor-default"
-              variants={fadeUp}
-              whileHover={{ backgroundColor: '#d4f0f2', borderColor: '#2a939f', color: '#0d3a42', scale: 1.04 }}
-              transition={{ type: 'spring', stiffness: 400, damping: 20 }}
-            >
-              {p}
-            </motion.span>
-          ))}
-        </motion.div>
       </div>
+
+      <style>{`
+        /* Desktop */
+        @media (min-width: 768px) {
+          .services-container { padding: 24px 40px !important; }
+          .services-subtitle { display: block !important; }
+          .services-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+          }
+          .service-card {
+            padding: 28px;
+            min-height: 280px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+          }
+          .service-icon-box { width: 52px; height: 52px; }
+          .service-icon-svg { width: 24px !important; height: 24px !important; }
+          .service-content { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; gap: 6px; }
+          .service-title-row { display: block; }
+          .service-title { font-size: 24px; margin-bottom: 8px; }
+          .service-tag-mobile { display: none !important; }
+          .service-body { font-size: 14px; }
+          .body-desktop { display: inline; }
+          .body-mobile { display: none; }
+          .service-footer { padding-top: 16px; margin-top: 24px; }
+        }
+
+        /* Mobile */
+        @media (max-width: 767px) {
+          .services-container { padding: 32px 12px 0 !important; }
+          .services-subtitle { display: none !important; }
+          .services-header { flex-direction: column; align-items: flex-start !important; }
+          .services-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+          }
+          .service-card {
+            padding: 20px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 16px;
+          }
+          .service-icon-box { width: 48px; height: 48px; border-radius: 12px !important; }
+          .service-content { flex: 1; min-width: 0; }
+          .service-title-row {
+            display: flex !important;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 8px;
+          }
+          .service-title { font-size: 18px; margin-bottom: 4px; }
+          .service-tag-mobile { display: block !important; }
+          .service-body { font-size: 12px; }
+          .body-desktop { display: none; }
+          .body-mobile { display: inline; }
+          .service-footer { display: none !important; }
+        }
+      `}</style>
     </section>
   )
 }

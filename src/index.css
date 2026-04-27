@@ -1,117 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 html { scroll-behavior: smooth; }
+html, body { background: #f5f7f8; }
+body { font-family: Manrope, ui-sans-serif, system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
 
 @layer components {
-  /* Grain texture */
   .grain { position: relative; }
   .grain::after {
     content: '';
     position: absolute;
     inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
     pointer-events: none;
     z-index: 1;
   }
   .grain > * { position: relative; z-index: 2; }
 
-  /* Nav */
-  .nav-glass {
-    background: rgba(13,58,66,0.85);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border-bottom: 1px solid rgba(255,255,255,0.08);
-  }
-
-  /* Buttons */
-  .btn-primary {
-    background: linear-gradient(135deg, #d4a030 0%, #e8bc54 60%, #d4a030 100%);
-    box-shadow: 0 4px 16px rgba(212,160,48,0.35), 0 1px 3px rgba(0,0,0,0.2);
-  }
-  .btn-primary:focus-visible {
-    outline: 2px solid #f0d080;
-    outline-offset: 3px;
-  }
-  .btn-primary:active {
-    transform: scale(0.97);
-    box-shadow: 0 2px 8px rgba(212,160,48,0.25), 0 1px 2px rgba(0,0,0,0.15);
-  }
-  .btn-outline {
-    border: 2px solid rgba(255,255,255,0.55);
-    color: white;
-  }
-  .btn-outline:hover {
-    background: rgba(255,255,255,0.12);
-    border-color: white;
-  }
-  .btn-outline:focus-visible {
-    outline: 2px solid rgba(255,255,255,0.8);
-    outline-offset: 3px;
-  }
-  .btn-outline:active {
-    transform: scale(0.97);
-    background: rgba(255,255,255,0.18);
-  }
-
-  /* Nav link underline */
-  .nav-link { position: relative; }
-  .nav-link::after {
-    content: '';
-    position: absolute;
-    bottom: -3px; left: 0;
-    width: 0; height: 1.5px;
-    background: #d4a030;
-    transition: width 0.25s ease;
-  }
-  .nav-link:hover::after { width: 100%; }
-  .nav-link:hover { color: #f0d080; }
-  .nav-link:focus-visible { color: #f0d080; outline: none; }
-  .nav-link:focus-visible::after { width: 100%; }
-  .nav-link:active { color: #d4a030; opacity: 0.8; }
-
-  /* Cards */
-  .card-elevated {
-    background: #ffffff;
-    box-shadow:
-      0 1px 2px rgba(13,58,66,0.04),
-      0 4px 12px rgba(13,58,66,0.08),
-      0 16px 40px rgba(13,58,66,0.06);
-  }
-  .testimonial-card {
-    background: linear-gradient(145deg, #ffffff, #f8fafb);
-    box-shadow:
-      0 1px 2px rgba(13,58,66,0.03),
-      0 6px 20px rgba(13,58,66,0.07),
-      0 20px 48px rgba(13,58,66,0.05);
-  }
-
-  /* Step number */
-  .step-num {
-    background: linear-gradient(135deg, #0d3a42 0%, #19636e 100%);
-    box-shadow: 0 4px 14px rgba(13,58,66,0.35);
-  }
-
-  /* Form */
   .form-input {
-    border: 1.5px solid #d1dde0;
+    border: 1.5px solid rgba(14,31,51,0.12);
+    background: #eef2f5;
     transition: border-color 0.2s ease, box-shadow 0.2s ease;
-  }
-  .form-input:focus {
-    border-color: #2a939f;
-    box-shadow: 0 0 0 3px rgba(42,147,159,0.12);
+    border-radius: 10px;
+    padding: 13px 14px;
+    font-size: 14px;
+    color: #0e1f33;
+    font-family: Manrope, ui-sans-serif, system-ui, sans-serif;
+    width: 100%;
     outline: none;
   }
-
-  /* Trust badge */
-  .trust-badge {
-    background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(255,255,255,0.14);
-    border-radius: 999px;
-    backdrop-filter: blur(8px);
+  .form-input:focus {
+    border-color: #7fb3d5;
+    box-shadow: 0 0 0 3px rgba(127,179,213,0.15);
   }
-
-  /* Mobile menu */
-  .mobile-menu-open { max-height: 400px; }
+  .form-input::placeholder { color: #9aa6b1; }
 }

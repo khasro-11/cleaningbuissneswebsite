@@ -1,41 +1,69 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import emailjs from '@emailjs/browser'
-import { fadeUp, slideLeft, slideRight, stagger, viewport } from '../utils/animations'
+import { fadeUp, stagger, viewport } from '../utils/animations'
 
 const EMAILJS_SERVICE  = import.meta.env.VITE_EMAILJS_SERVICE  || 'service_b5s1o4r'
 const EMAILJS_TEMPLATE = import.meta.env.VITE_EMAILJS_TEMPLATE || 'template_fxi5j53'
 const EMAILJS_KEY      = import.meta.env.VITE_EMAILJS_KEY      || 'pMvYvsy9XX0St2gjU'
 
-const contactItems = [
-  {
-    icon: <path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>,
-    label: 'Telefon',
-    value: <a href="tel:+4915511435755" className="text-white font-medium hover:text-gold-300 transition-colors">+49 155 1143 5755</a>,
-  },
-  {
-    icon: <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>,
-    label: 'E-Mail',
-    value: <a href="mailto:info@cleanpro.de" className="text-white font-medium hover:text-gold-300 transition-colors">info@cleanpro.de</a>,
-  },
-  {
-    icon: <><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></>,
-    label: 'Standort',
-    value: <span className="text-white font-medium">Musterstraße 12, 10115 Berlin</span>,
-  },
-  {
-    icon: <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>,
-    label: 'Öffnungszeiten',
-    value: <span className="text-white font-medium">Mo–Fr: 8–18 Uhr · Sa: 9–14 Uhr</span>,
-  },
+const INK = '#0e1f33'
+const INK_SOFT = '#3a4a5e'
+const NAVY = '#1f3a5f'
+const SKY = '#7fb3d5'
+const PAPER = '#f5f7f8'
+const LINE = 'rgba(14,31,51,0.10)'
+
+function Icon({ name, size = 18, color = NAVY }) {
+  const p = { width: size, height: size, viewBox: '0 0 24 24', fill: 'none', stroke: color, strokeWidth: 1.6, strokeLinecap: 'round', strokeLinejoin: 'round' }
+  switch (name) {
+    case 'phone':    return <svg {...p}><path d="M5 4h4l2 5-3 2a12 12 0 0 0 5 5l2-3 5 2v4a2 2 0 0 1-2 2A17 17 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg>
+    case 'calendar': return <svg {...p}><rect x="3" y="5" width="18" height="16" rx="1"/><line x1="3" y1="10" x2="21" y2="10"/><line x1="8" y1="3" x2="8" y2="7"/><line x1="16" y1="3" x2="16" y2="7"/></svg>
+    case 'building': return <svg {...p}><rect x="4" y="3" width="16" height="18"/><line x1="9" y1="7" x2="9" y2="9"/><line x1="13" y1="7" x2="13" y2="9"/><line x1="9" y1="12" x2="9" y2="14"/><line x1="13" y1="12" x2="13" y2="14"/><rect x="10" y="17" width="4" height="4"/></svg>
+    case 'shield':   return <svg {...p}><path d="M12 3l8 3v6c0 5-4 8-8 9-4-1-8-4-8-9V6z"/></svg>
+    case 'key':      return <svg {...p}><circle cx="8" cy="14" r="4"/><line x1="11" y1="11" x2="20" y2="2"/><line x1="17" y1="5" x2="20" y2="8"/><line x1="14" y1="8" x2="17" y2="11"/></svg>
+    case 'spray':    return <svg {...p}><rect x="7" y="9" width="9" height="12" rx="1"/><path d="M9 9V5h5v4"/><path d="M14 5h4M14 3h4M14 7h4"/></svg>
+    case 'check':    return <svg {...p}><path d="M4 12l5 5 11-12"/></svg>
+    case 'arrow':    return <svg {...p}><line x1="4" y1="12" x2="20" y2="12"/><polyline points="14 6 20 12 14 18"/></svg>
+    default:         return null
+  }
+}
+
+const objectTypes = [
+  { id: 'buero',      label: 'Büro',       icon: 'building' },
+  { id: 'arztpraxis', label: 'Arztpraxis', icon: 'shield'   },
+  { id: 'airbnb',     label: 'Airbnb',     icon: 'key'      },
+  { id: 'andere',     label: 'Andere',     icon: 'spray'    },
 ]
 
+function ContactRow({ icon, label, value }) {
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+      <div style={{
+        width: 42, height: 42, borderRadius: 12, flexShrink: 0,
+        background: 'rgba(245,247,248,0.85)',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        boxShadow: '0 1px 3px rgba(14,31,51,0.08)',
+      }}>
+        <Icon name={icon} size={18} color={NAVY} />
+      </div>
+      <div>
+        <div style={{ fontSize: 11, fontWeight: 700, color: 'rgba(14,31,51,0.60)', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 2 }}>
+          {label}
+        </div>
+        <div style={{ fontSize: 15, fontWeight: 700, color: INK }}>{value}</div>
+      </div>
+    </div>
+  )
+}
+
 export default function Kontakt() {
-  const [form, setForm] = useState({ vorname: '', nachname: '', email: '', telefon: '', leistung: '', nachricht: '' })
+  const [form, setForm]         = useState({ name: '', email: '', telefon: '', nachricht: '' })
+  const [objekt, setObjekt]     = useState('buero')
   const [honeypot, setHoneypot] = useState('')
-  const [sent, setSent] = useState(false)
-  const [sending, setSending] = useState(false)
-  const [error, setError] = useState(null)
+  const [sent, setSent]         = useState(false)
+  const [sending, setSending]   = useState(false)
+  const [error, setError]       = useState(null)
 
   const update = e => setForm(f => ({ ...f, [e.target.id]: e.target.value }))
 
@@ -49,11 +77,11 @@ export default function Kontakt() {
         EMAILJS_SERVICE,
         EMAILJS_TEMPLATE,
         {
-          vorname:   form.vorname,
-          nachname:  form.nachname,
+          vorname:   form.name,
+          nachname:  '',
           email:     form.email,
           telefon:   form.telefon  || '—',
-          leistung:  form.leistung || '—',
+          leistung:  objekt,
           nachricht: form.nachricht || '—',
         },
         EMAILJS_KEY
@@ -61,157 +89,262 @@ export default function Kontakt() {
       setSent(true)
     } catch (err) {
       console.error('EmailJS error:', err)
-      const msg = err?.text || err?.message || JSON.stringify(err)
-      setError(msg)
+      setError(err?.text || err?.message || 'Fehler beim Senden')
     } finally {
       setSending(false)
     }
   }
 
   return (
-    <section
-      id="kontakt"
-      className="py-16 md:py-24 lg:py-32 relative overflow-hidden grain"
-      style={{ background: 'linear-gradient(160deg, #0a2a30 0%, #0d3a42 40%, #19636e 100%)' }}
-    >
-      <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse 60% 60% at 80% 20%, rgba(42,147,159,0.2) 0%, transparent 70%)' }} />
-      <div className="absolute inset-0 pointer-events-none" style={{ background: 'radial-gradient(ellipse 50% 50% at 20% 80%, rgba(212,160,48,0.08) 0%, transparent 70%)' }} />
+    <section id="kontakt" style={{ background: '#f5f7f8' }}>
+      <div className="kontakt-outer" style={{ maxWidth: 1280, margin: '0 auto', padding: '40px 40px' }}>
+        <div
+          className="kontakt-card"
+          style={{ borderRadius: 28, background: SKY }}
+        >
 
-      <div className="max-w-6xl mx-auto px-6 lg:px-8 relative">
-        <div className="grid md:grid-cols-2 gap-10 lg:gap-16 items-start">
-
-          {/* Left */}
-          <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={viewport} className="order-2 md:order-1">
-            <motion.span className="text-gold-400 text-sm font-semibold tracking-widest uppercase mb-3 block" variants={fadeUp}>Kontakt</motion.span>
-            <motion.h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tighter2 mb-6 leading-tight" variants={fadeUp}>
-              Lassen Sie uns<br />ins Gespräch kommen
+          {/* Heading */}
+          <motion.div
+            className="kontakt-heading"
+            variants={stagger} initial="hidden" whileInView="visible" viewport={viewport}
+          >
+            <motion.div
+              style={{ fontSize: 12, fontWeight: 700, color: NAVY, letterSpacing: '0.12em', textTransform: 'uppercase' }}
+              variants={fadeUp}
+            >
+              Kontakt
+            </motion.div>
+            <motion.h2
+              style={{ fontSize: 'clamp(36px, 3.5vw, 56px)', fontWeight: 800, margin: '8px 0 0', letterSpacing: '-0.035em', color: INK, lineHeight: 1.0 }}
+              variants={fadeUp}
+              className="kontakt-h2"
+            >
+              Lassen Sie uns reden.
             </motion.h2>
-            <motion.p className="text-white/65 text-lg leading-relaxed2 mb-10" variants={fadeUp}>
-              Fordern Sie noch heute Ihr kostenloses Angebot an. Wir melden uns innerhalb von 24 Stunden bei Ihnen.
+            <motion.p
+              style={{ fontSize: 17, lineHeight: 1.55, color: 'rgba(14,31,51,0.75)', marginTop: 20, maxWidth: 420 }}
+              variants={fadeUp}
+              className="kontakt-subp"
+            >
+              60-Sekunden-Anfrage, kostenlose Besichtigung innerhalb
+              von 48 Stunden. Kein Vertrag, keine Verpflichtung.
             </motion.p>
-
-            <div className="space-y-5">
-              {contactItems.map(c => (
-                <motion.div key={c.label} className="flex items-center gap-4" variants={fadeUp}>
-                  <div className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0" style={{ background: 'rgba(255,255,255,0.1)', border: '1px solid rgba(255,255,255,0.12)' }}>
-                    <svg width="20" height="20" fill="none" stroke="#d4a030" strokeWidth="1.8" viewBox="0 0 24 24">{c.icon}</svg>
-                  </div>
-                  <div>
-                    <p className="text-white/50 text-xs uppercase tracking-widest mb-0.5">{c.label}</p>
-                    {c.value}
-                  </div>
-                </motion.div>
-              ))}
-            </div>
           </motion.div>
 
-          {/* Right: form */}
+          {/* Form */}
           <motion.div
-            className="bg-white rounded-2xl p-4 sm:p-5 lg:p-6 order-1 md:order-2"
-            style={{ boxShadow: '0 8px 40px rgba(0,0,0,0.25)' }}
-            variants={slideRight}
+            className="kontakt-form"
+            style={{
+              background: PAPER, borderRadius: 20, padding: 32,
+              display: 'flex', flexDirection: 'column', gap: 16,
+            }}
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
+            viewport={viewport}
+          >
+            {!sent ? (
+              <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+
+                {/* Object type selector */}
+                <div>
+                  <div style={{ fontSize: 11, fontWeight: 700, color: INK_SOFT, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 8 }}>
+                    Welches Objekt?
+                  </div>
+                  <div className="object-tiles" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 6 }}>
+                    {objectTypes.map(o => (
+                      <button
+                        key={o.id}
+                        type="button"
+                        onClick={() => setObjekt(o.id)}
+                        style={{
+                          padding: '12px 8px', borderRadius: 10, fontSize: 12, fontWeight: 700,
+                          background: objekt === o.id ? INK : 'transparent',
+                          color: objekt === o.id ? PAPER : INK,
+                          border: `1.5px solid ${objekt === o.id ? INK : LINE}`,
+                          display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 6,
+                          cursor: 'pointer', fontFamily: 'Manrope, sans-serif',
+                        }}
+                      >
+                        <Icon name={o.icon} size={18} color={objekt === o.id ? SKY : NAVY} />
+                        {o.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Name */}
+                <div>
+                  <label htmlFor="name" style={{ display: 'block', fontSize: 11, fontWeight: 700, color: INK_SOFT, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 6 }}>
+                    Name
+                  </label>
+                  <input id="name" type="text" placeholder="Maria Holtz" required value={form.name} onChange={update} className="form-input" />
+                </div>
+
+                {/* Email + Phone */}
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
+                  <div>
+                    <label htmlFor="email" style={{ display: 'block', fontSize: 11, fontWeight: 700, color: INK_SOFT, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 6 }}>
+                      E-Mail
+                    </label>
+                    <input id="email" type="email" placeholder="m.holtz@beispiel.de" required value={form.email} onChange={update} className="form-input" />
+                  </div>
+                  <div>
+                    <label htmlFor="telefon" style={{ display: 'block', fontSize: 11, fontWeight: 700, color: INK_SOFT, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 6 }}>
+                      Telefon (optional)
+                    </label>
+                    <input id="telefon" type="tel" placeholder="030 ·" value={form.telefon} onChange={update} className="form-input" />
+                  </div>
+                </div>
+
+                {/* Message */}
+                <div>
+                  <label htmlFor="nachricht" style={{ display: 'block', fontSize: 11, fontWeight: 700, color: INK_SOFT, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 6 }}>
+                    Worum geht's?
+                  </label>
+                  <textarea
+                    id="nachricht"
+                    rows={3}
+                    placeholder="Kurz: Objekt, Größe, gewünschte Frequenz…"
+                    value={form.nachricht}
+                    onChange={update}
+                    className="form-input"
+                    style={{ resize: 'none', minHeight: 80 }}
+                  />
+                </div>
+
+                {/* Honeypot */}
+                <input type="text" name="website" value={honeypot} onChange={e => setHoneypot(e.target.value)}
+                  tabIndex={-1} autoComplete="off" aria-hidden="true"
+                  style={{ position: 'absolute', left: '-9999px', width: 1, height: 1, opacity: 0 }} />
+
+                {/* GDPR */}
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10, fontSize: 12, color: INK_SOFT, marginTop: 4 }}>
+                  <div style={{
+                    width: 18, height: 18, borderRadius: 5, border: `1.5px solid ${LINE}`,
+                    background: INK, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
+                  }}>
+                    <Icon name="check" size={12} color={PAPER} />
+                  </div>
+                  Ich stimme der <u style={{ cursor: 'pointer', marginLeft: 4 }}>Datenschutzerklärung</u> zu.
+                </div>
+
+                {/* Submit */}
+                <motion.button
+                  type="submit"
+                  disabled={sending}
+                  style={{
+                    padding: 16, marginTop: 6, background: INK, color: PAPER,
+                    border: 'none', borderRadius: 12, fontWeight: 700, fontSize: 15,
+                    cursor: sending ? 'not-allowed' : 'pointer',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    gap: 10, fontFamily: 'Manrope, sans-serif',
+                    opacity: sending ? 0.6 : 1,
+                  }}
+                  whileHover={sending ? {} : { scale: 1.02, y: -1 }}
+                  whileTap={sending ? {} : { scale: 0.97 }}
+                  transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+                >
+                  {sending ? 'Wird gesendet…' : <>Angebot in 60 Sekunden <Icon name="arrow" size={16} color={PAPER} /></>}
+                </motion.button>
+
+                {error && (
+                  <p style={{ fontSize: 12, color: '#ef4444', textAlign: 'center' }}>
+                    Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut.
+                  </p>
+                )}
+
+                <p style={{ fontSize: 12, color: INK_SOFT, textAlign: 'center' }}>
+                  Antwort innerhalb von 4 Stunden — werktags.
+                </p>
+              </form>
+            ) : (
+              <motion.div
+                style={{ textAlign: 'center', padding: '32px 0' }}
+                initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.4 }}
+              >
+                <motion.div
+                  style={{
+                    width: 56, height: 56, borderRadius: '50%', background: SKY,
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    margin: '0 auto 20px',
+                  }}
+                  initial={{ scale: 0 }} animate={{ scale: 1 }}
+                  transition={{ type: 'spring', stiffness: 300, damping: 16, delay: 0.1 }}
+                >
+                  <Icon name="check" size={24} color={INK} />
+                </motion.div>
+                <h4 style={{ fontSize: 22, fontWeight: 800, color: INK, marginBottom: 8 }}>Vielen Dank!</h4>
+                <p style={{ fontSize: 14, color: INK_SOFT, lineHeight: 1.6 }}>
+                  Ihre Anfrage ist bei uns eingegangen. Wir melden uns innerhalb von 4 Stunden.
+                </p>
+              </motion.div>
+            )}
+          </motion.div>
+
+          {/* Contact info */}
+          <motion.div
+            className="kontakt-info"
+            style={{
+              background: 'rgba(14,31,51,0.10)',
+              borderRadius: 16, padding: 24,
+              display: 'flex', flexDirection: 'column', gap: 20,
+            }}
+            variants={fadeUp}
             initial="hidden"
             whileInView="visible"
             viewport={viewport}
           >
-            {!sent ? (
-              <>
-                <h3 className="font-display text-lg font-bold text-teal-950 mb-0.5 tracking-tight">Kostenloses Angebot</h3>
-                <p className="text-teal-700/60 text-xs mb-4">Ausfüllen, absenden, fertig — wir melden uns!</p>
-
-                <form onSubmit={handleSubmit} className="space-y-3">
-                  <div className="grid sm:grid-cols-2 gap-3">
-                    <div>
-                      <label htmlFor="vorname" className="block text-teal-900 text-xs font-medium mb-1">Vorname</label>
-                      <input id="vorname" type="text" placeholder="Max" required value={form.vorname} onChange={update}
-                        className="form-input w-full px-3 py-1.5 rounded-lg text-sm text-teal-950 bg-teal-50/30" />
-                    </div>
-                    <div>
-                      <label htmlFor="nachname" className="block text-teal-900 text-xs font-medium mb-1">Nachname</label>
-                      <input id="nachname" type="text" placeholder="Mustermann" required value={form.nachname} onChange={update}
-                        className="form-input w-full px-3 py-1.5 rounded-lg text-sm text-teal-950 bg-teal-50/30" />
-                    </div>
-                  </div>
-                  <div>
-                    <label htmlFor="email" className="block text-teal-900 text-xs font-medium mb-1">E-Mail-Adresse</label>
-                    <input id="email" type="email" placeholder="max@beispiel.de" required value={form.email} onChange={update}
-                      className="form-input w-full px-3 py-1.5 rounded-lg text-sm text-teal-950 bg-teal-50/30" />
-                  </div>
-                  <div>
-                    <label htmlFor="telefon" className="block text-teal-900 text-xs font-medium mb-1">Telefonnummer <span className="text-teal-400/60 font-normal">(optional)</span></label>
-                    <input id="telefon" type="tel" placeholder="+49 155 1143 5755" value={form.telefon} onChange={update}
-                      className="form-input w-full px-3 py-1.5 rounded-lg text-sm text-teal-950 bg-teal-50/30" />
-                  </div>
-                  <div>
-                    <label htmlFor="leistung" className="block text-teal-900 text-xs font-medium mb-1">Gewünschte Leistung</label>
-                    <select id="leistung" required value={form.leistung} onChange={update}
-                      className="form-input w-full px-3 py-1.5 rounded-lg text-sm text-teal-950 bg-teal-50/30 appearance-none cursor-pointer">
-                      <option value="" disabled>Bitte wählen...</option>
-                      <option>Büroreinigung</option>
-                      <option>Gebäudereinigung</option>
-                      <option>Grundreinigung / Tiefenreinigung</option>
-                      <option>Fensterreinigung</option>
-                      <option>Baureinigung</option>
-                      <option>Sonstiges</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label htmlFor="nachricht" className="block text-teal-900 text-xs font-medium mb-1">Nachricht</label>
-                    <textarea id="nachricht" rows={2} placeholder="Beschreiben Sie kurz Ihren Reinigungsbedarf..." value={form.nachricht} onChange={update}
-                      className="form-input w-full px-3 py-1.5 rounded-lg text-sm text-teal-950 bg-teal-50/30 resize-none" />
-                  </div>
-
-                  {/* Honeypot — hidden from humans, filled by bots */}
-                  <input
-                    type="text"
-                    name="website"
-                    value={honeypot}
-                    onChange={e => setHoneypot(e.target.value)}
-                    tabIndex={-1}
-                    autoComplete="off"
-                    aria-hidden="true"
-                    style={{ position: 'absolute', left: '-9999px', width: '1px', height: '1px', opacity: 0 }}
-                  />
-
-                  <motion.button
-                    type="submit"
-                    disabled={sending}
-                    className="btn-primary w-full py-2.5 rounded-lg text-sm font-semibold text-teal-950 disabled:opacity-60 disabled:cursor-not-allowed"
-                    whileHover={sending ? {} : { scale: 1.02, y: -1 }}
-                    whileTap={sending ? {} : { scale: 0.97 }}
-                    transition={{ type: 'spring', stiffness: 400, damping: 20 }}
-                  >
-                    {sending ? 'Wird gesendet…' : 'Angebot kostenlos anfragen →'}
-                  </motion.button>
-
-                  {error && (
-                    <p className="text-red-500 text-xs text-center">
-                      Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut oder schreiben Sie uns direkt.
-                    </p>
-                  )}
-
-                  <p className="text-teal-500/60 text-xs text-center leading-relaxed">
-                    Mit dem Absenden stimmen Sie unserer <a href="#" className="underline hover:text-teal-600 transition-colors">Datenschutzerklärung</a> zu.
-                  </p>
-                </form>
-              </>
-            ) : (
-              <motion.div className="text-center py-8" initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.4 }}>
-                <motion.div
-                  className="w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-4"
-                  style={{ background: 'linear-gradient(135deg,#2a939f,#19636e)' }}
-                  initial={{ scale: 0 }} animate={{ scale: 1 }}
-                  transition={{ type: 'spring', stiffness: 300, damping: 16, delay: 0.1 }}
-                >
-                  <svg width="24" height="24" fill="none" stroke="white" strokeWidth="2.5" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
-                </motion.div>
-                <h4 className="font-display text-xl font-bold text-teal-950 mb-2">Vielen Dank!</h4>
-                <p className="text-teal-700/70 text-sm leading-relaxed">Ihre Anfrage ist bei uns eingegangen. Wir melden uns innerhalb von 24 Stunden bei Ihnen.</p>
-              </motion.div>
-            )}
+            <ContactRow icon="phone"    label="Telefon"    value="+49 155 1143 5755" />
+            <ContactRow icon="calendar" label="Sprechzeit" value="Mo–Fr · 7:00 – 19:00" />
+            <ContactRow icon="building" label="Adresse"    value="Musterstraße 12, Berlin" />
           </motion.div>
+
         </div>
       </div>
+
+      <style>{`
+        /* Desktop: grid areas */
+        @media (min-width: 768px) {
+          .kontakt-outer { padding: 40px 40px !important; }
+          .kontakt-card {
+            display: grid;
+            grid-template-columns: 1fr 1.05fr;
+            grid-template-rows: auto 1fr;
+            grid-template-areas:
+              "heading form"
+              "info    form";
+            column-gap: 56px;
+            row-gap: 0;
+            padding: 56px;
+          }
+          .kontakt-heading { grid-area: heading; align-self: start; }
+          .kontakt-form    { grid-area: form; }
+          .kontakt-info    { grid-area: info; align-self: end; margin-top: 40px; }
+          .kontakt-h2 { font-size: clamp(36px, 3.5vw, 56px) !important; }
+          .kontakt-subp { font-size: 17px !important; }
+          .object-tiles { grid-template-columns: repeat(4, 1fr) !important; }
+        }
+
+        /* Mobile: flex column with reordering */
+        @media (max-width: 767px) {
+          .kontakt-outer { padding: 32px 12px 0 !important; }
+          .kontakt-card {
+            display: flex;
+            flex-direction: column;
+            padding: 24px;
+            gap: 16px;
+            border-radius: 22px !important;
+          }
+          .kontakt-heading { order: 1; }
+          .kontakt-form    { order: 2; padding: 20px !important; }
+          .kontakt-info    { order: 3; }
+          .kontakt-h2 { font-size: 28px !important; }
+          .kontakt-subp { font-size: 14px !important; margin-top: 12px !important; }
+          .object-tiles { grid-template-columns: repeat(2, 1fr) !important; }
+        }
+      `}</style>
     </section>
   )
 }

@@ -1,64 +1,99 @@
 import { motion } from 'framer-motion'
 import { fadeUp, stagger, viewport } from '../utils/animations'
 
-const steps = [
-  { num: '01', title: 'Kontakt aufnehmen',   desc: 'Rufen Sie uns an, schreiben Sie uns oder nutzen Sie unser Online-Formular. Wir melden uns innerhalb von 24 Stunden.' },
-  { num: '02', title: 'Angebot erhalten',     desc: 'Wir erstellen Ihnen ein individuelles, transparentes Angebot — ganz ohne versteckte Kosten oder Überraschungen.' },
-  { num: '03', title: 'Loslegen & entspannen', desc: 'Wir kümmern uns um alles. Sie lehnen sich zurück und genießen Ihr makelloses Ergebnis.' },
-]
+const INK = '#0e1f33'
+const SKY = '#7fb3d5'
+const PAPER = '#f5f7f8'
 
-// Ablauf.jsx
+const steps = [
+  { n: 1, t: 'Kurze Anfrage',   body: 'Online-Formular oder Anruf. 60 Sekunden.' },
+  { n: 2, t: 'Vor-Ort-Termin',  body: 'Wir kommen zur kostenlosen Besichtigung.' },
+  { n: 3, t: 'Festes Team',     body: 'Sie bekommen feste Gesichter zugeteilt.' },
+  { n: 4, t: 'Monatsbericht',   body: 'Fotos, Stunden, Eigenkontrolle inklusive.' },
+]
 
 export default function Ablauf() {
   return (
-    <section id="ablauf" className="py-16 md:py-24 lg:py-32" style={{ background: '#f8f6f1' }}>
-      <div className="max-w-6xl mx-auto px-6 lg:px-8">
+    <section id="ablauf" style={{ background: PAPER }}>
+      <div className="ablauf-container" style={{ maxWidth: 1280, margin: '0 auto' }}>
+        <div style={{ background: INK, color: PAPER, borderRadius: 28, position: 'relative', overflow: 'hidden' }} className="ablauf-card">
 
-        <motion.div className="text-center mb-16" variants={stagger} initial="hidden" whileInView="visible" viewport={viewport}>
-          <motion.span className="text-teal-600 text-sm font-semibold tracking-widest uppercase mb-3 block" variants={fadeUp}>Einfach & transparent</motion.span>
-          <motion.h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-teal-950 tracking-tighter2 mb-4" variants={fadeUp}>
-            So funktioniert's
-          </motion.h2>
-          <motion.p className="text-teal-700/70 text-lg leading-relaxed2 max-w-xl mx-auto" variants={fadeUp}>
-            In drei einfachen Schritten zu Ihrem perfekten Reinigungsservice.
-          </motion.p>
-        </motion.div>
-
-        <motion.div className="grid md:grid-cols-3 gap-8 relative" variants={stagger} initial="hidden" whileInView="visible" viewport={viewport}>
-          {/* Connector line */}
-          <div className="hidden md:block absolute top-12 left-[calc(16.67%+1.5rem)] right-[calc(16.67%+1.5rem)] h-px"
-            style={{ background: 'linear-gradient(to right, #19636e, #2a939f, #19636e)' }} />
-
-          {steps.map((s, i) => (
-            <motion.div key={s.num} className="flex flex-col items-center text-center" variants={fadeUp}>
-              <motion.div
-                className="step-num w-24 h-24 rounded-2xl flex items-center justify-center mb-6 relative z-10"
-                whileHover={{ scale: 1.06, rotate: 2 }}
-                transition={{ type: 'spring', stiffness: 300, damping: 18 }}
-              >
-                <div className="text-center">
-                  <span className="text-white/40 text-xs font-semibold tracking-widest block">SCHRITT</span>
-                  <p className="text-white font-display text-3xl font-bold leading-none">{s.num}</p>
-                </div>
-              </motion.div>
-              <h3 className="font-display text-xl font-bold text-teal-950 mb-3 tracking-tight">{s.title}</h3>
-              <p className="text-teal-700/70 text-sm leading-relaxed2">{s.desc}</p>
+          <motion.div variants={stagger} initial="hidden" whileInView="visible" viewport={viewport}>
+            <motion.div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: 16 }} className="ablauf-header" variants={fadeUp}>
+              <div>
+                <div style={{ fontSize: 12, fontWeight: 700, color: SKY, letterSpacing: '0.12em', textTransform: 'uppercase' }}>Ablauf</div>
+                <h2 className="ablauf-heading" style={{ fontWeight: 800, margin: '8px 0 0', letterSpacing: '-0.035em', lineHeight: 1.05 }}>
+                  Vom Anruf zum sauberen Objekt<br />
+                  in <span style={{ color: SKY }}>vier Schritten.</span>
+                </h2>
+              </div>
             </motion.div>
-          ))}
-        </motion.div>
 
-        <motion.div className="text-center mt-14" initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.3 }} viewport={viewport}>
-          <motion.a
-            href="#kontakt"
-            className="btn-primary inline-block px-10 py-4 rounded-xl text-base font-semibold text-teal-950 no-underline"
-            whileHover={{ scale: 1.03, y: -2 }}
-            whileTap={{ scale: 0.97 }}
-            transition={{ type: 'spring', stiffness: 400, damping: 20 }}
-          >
-            Jetzt kostenlos anfragen
-          </motion.a>
-        </motion.div>
+            {/* Steps */}
+            <div className="steps-grid" style={{ position: 'relative' }}>
+              {/* Desktop connector line */}
+              <div className="steps-connector" style={{ position: 'absolute', top: 27, left: '12.5%', right: '12.5%', height: 1, borderTop: '1px dashed rgba(127,179,213,0.4)', pointerEvents: 'none' }} />
+
+              {steps.map(s => (
+                <motion.div key={s.n} className="step-item" variants={fadeUp}>
+                  <div className="step-num" style={{ background: SKY, color: INK, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, position: 'relative', zIndex: 1, flexShrink: 0 }}>
+                    {s.n}
+                  </div>
+                  <div className="step-text">
+                    <div className="step-title" style={{ fontWeight: 800, letterSpacing: '-0.02em' }}>{s.t}</div>
+                    <div className="step-body" style={{ color: 'rgba(245,247,248,0.65)', lineHeight: 1.5 }}>{s.body}</div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+
+            <motion.div style={{ display: 'flex', justifyContent: 'center' }} className="ablauf-cta" variants={fadeUp}>
+              <motion.a
+                href="#kontakt"
+                style={{ background: SKY, color: INK, padding: '14px 28px', borderRadius: 999, fontWeight: 700, fontSize: 14, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 8 }}
+                whileHover={{ scale: 1.04, y: -1 }}
+                whileTap={{ scale: 0.97 }}
+                transition={{ type: 'spring', stiffness: 400, damping: 20 }}
+              >
+                Jetzt kostenlos anfragen →
+              </motion.a>
+            </motion.div>
+          </motion.div>
+        </div>
       </div>
+
+      <style>{`
+        /* Desktop */
+        @media (min-width: 768px) {
+          .ablauf-container { padding: 40px 40px; }
+          .ablauf-card { padding: 56px; }
+          .ablauf-heading { font-size: clamp(32px, 3.5vw, 52px); }
+          .ablauf-header { margin-bottom: 48px; }
+          .steps-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; }
+          .step-item { display: flex; flex-direction: column; padding-right: 24px; }
+          .step-num { width: 56px; height: 56px; border-radius: 99px; font-size: 22px; }
+          .step-title { font-size: 22px; margin-top: 24px; }
+          .step-body { font-size: 14px; margin-top: 8px; }
+          .step-text { flex: 1; }
+          .ablauf-cta { margin-top: 48px; }
+          .steps-connector { display: block; }
+        }
+
+        /* Mobile */
+        @media (max-width: 767px) {
+          .ablauf-container { padding: 32px 12px 0; }
+          .ablauf-card { padding: 28px; border-radius: 22px !important; }
+          .ablauf-heading { font-size: 28px; }
+          .ablauf-header { margin-bottom: 24px; }
+          .steps-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
+          .step-item { display: grid; grid-template-columns: 44px 1fr; gap: 14px; align-items: flex-start; padding-right: 0 !important; }
+          .step-num { width: 44px; height: 44px; border-radius: 99px; font-size: 18px; }
+          .step-title { font-size: 16px; margin-top: 0; }
+          .step-body { font-size: 13px; margin-top: 4px; }
+          .ablauf-cta { margin-top: 28px; }
+          .steps-connector { display: none !important; }
+        }
+      `}</style>
     </section>
   )
 }
