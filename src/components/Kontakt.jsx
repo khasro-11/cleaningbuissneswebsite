@@ -182,7 +182,7 @@ export default function Kontakt() {
                 </div>
 
                 {/* Email + Phone */}
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
+                <div className="email-phone-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10 }}>
                   <div>
                     <label htmlFor="email" style={{ display: 'block', fontSize: 11, fontWeight: 700, color: INK_SOFT, letterSpacing: '0.1em', textTransform: 'uppercase', marginBottom: 6 }}>
                       E-Mail
@@ -298,7 +298,7 @@ export default function Kontakt() {
           >
             <ContactRow icon="phone"    label="Telefon"    value="+49 155 1143 5755" />
             <ContactRow icon="calendar" label="Sprechzeit" value="Mo–Fr · 7:00 – 19:00" />
-            <ContactRow icon="building" label="Adresse"    value="Musterstraße 12, Berlin" />
+            <ContactRow icon="building" label="Adresse"    value="Bahnhofstraße 21, 59199 Bönen" />
           </motion.div>
 
         </div>
@@ -325,6 +325,11 @@ export default function Kontakt() {
           .kontakt-h2 { font-size: clamp(36px, 3.5vw, 56px) !important; }
           .kontakt-subp { font-size: 17px !important; }
           .object-tiles { grid-template-columns: repeat(4, 1fr) !important; }
+        }
+
+        /* Mobile: stack email/phone vertically */
+        @media (max-width: 520px) {
+          .email-phone-row { grid-template-columns: 1fr !important; }
         }
 
         /* Mobile: flex column with reordering */

@@ -50,7 +50,7 @@ export default function Hero() {
               </h1>
               <div>
                 <p style={{ fontSize: 16, color: INK_SOFT, lineHeight: 1.55, maxWidth: 480, margin: '0 0 24px 0' }}>
-                  Gewerbe · Fenster · Airbnb · Gebäude — ein Team, ein Ansprechpartner, faire Preise. Berlin und Umland.
+                  Gewerbe · Fenster · Airbnb · Gebäude — ein Team, ein Ansprechpartner, faire Preise. Bönen und Umgebung.
                 </p>
                 <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
                   <motion.a href="#kontakt" style={{ background: INK, color: PAPER, padding: '14px 22px', borderRadius: 999, fontWeight: 600, fontSize: 14, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 8 }} whileHover={{ scale: 1.03, y: -1 }} whileTap={{ scale: 0.97 }} transition={{ type: 'spring', stiffness: 400, damping: 20 }}>
@@ -77,7 +77,7 @@ export default function Hero() {
               <div style={{ fontSize: 12, color: SKY, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase' }}>Aktiv betreut</div>
               <div>
                 <div style={{ fontSize: 56, fontWeight: 800, letterSpacing: '-0.04em', lineHeight: 1 }}>340<span style={{ color: SKY }}>+</span></div>
-                <div style={{ fontSize: 13, color: 'rgba(245,247,248,0.65)', marginTop: 6 }}>Objekte in Berlin &amp; Brandenburg</div>
+                <div style={{ fontSize: 13, color: 'rgba(245,247,248,0.65)', marginTop: 6 }}>Objekte in Bönen &amp; Umgebung</div>
               </div>
             </motion.div>
 

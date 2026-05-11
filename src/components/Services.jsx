@@ -105,8 +105,36 @@ export default function Services() {
       </div>
 
       <style>{`
-        /* Desktop */
-        @media (min-width: 768px) {
+        /* Tablet: 2-column grid */
+        @media (min-width: 768px) and (max-width: 1023px) {
+          .services-container { padding: 24px 24px !important; }
+          .services-subtitle { display: none !important; }
+          .services-header { flex-direction: column; align-items: flex-start !important; }
+          .services-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+          }
+          .service-card {
+            padding: 24px;
+            min-height: 220px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+          }
+          .service-icon-box { width: 48px; height: 48px; }
+          .service-content { flex: 1; display: flex; flex-direction: column; justify-content: flex-end; gap: 6px; }
+          .service-title-row { display: block; }
+          .service-title { font-size: 20px; margin-bottom: 6px; }
+          .service-tag-mobile { display: none !important; }
+          .service-body { font-size: 13px; }
+          .body-desktop { display: inline; }
+          .body-mobile { display: none; }
+          .service-footer { padding-top: 14px; margin-top: 20px; }
+        }
+
+        /* Desktop: 4-column grid */
+        @media (min-width: 1024px) {
           .services-container { padding: 24px 40px !important; }
           .services-subtitle { display: block !important; }
           .services-grid {

@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { fadeUp, stagger, viewport } from '../utils/animations'
-import { SqueegeeMark } from './logos'
+import { SparkleWordmark } from './logos'
 
 const INK = '#0e1f33'
 const INK_SOFT = '#3a4a5e'
@@ -13,15 +13,10 @@ export default function Footer() {
       <div style={{ maxWidth: 1280, margin: '0 auto', padding: '0 40px 40px' }} className="footer-inner">
         <div style={{ height: 1, background: 'rgba(14,31,51,0.08)', marginBottom: 32 }} />
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 16 }} className="footer-row">
-          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <SqueegeeMark size={22} color={INK} accent={SKY} />
-            <div style={{ fontFamily: 'Manrope, sans-serif', lineHeight: 1 }}>
-              <div style={{ fontWeight: 800, fontSize: 14, letterSpacing: '-0.04em', color: INK }}>
-                Clean<span style={{ color: '#1f3a5f' }}>Pro</span>
-              </div>
-              <div style={{ fontWeight: 600, fontSize: 10, letterSpacing: '0.14em', textTransform: 'uppercase', color: INK_SOFT, opacity: 0.7, marginTop: 2 }}>
-                Reinigungsservice · Berlin
-              </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+            <SparkleWordmark textColor={INK} accent={SKY} size={14} />
+            <div style={{ fontWeight: 600, fontSize: 10, letterSpacing: '0.14em', textTransform: 'uppercase', color: INK_SOFT, opacity: 0.7, fontFamily: 'Manrope, sans-serif' }}>
+              Reinigungsservice · Bönen
             </div>
           </div>
           <div style={{ fontSize: 13, color: INK_SOFT }}>

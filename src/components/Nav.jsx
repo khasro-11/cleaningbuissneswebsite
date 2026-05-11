@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { SqueegeeMark } from './logos'
+import { SparkleWordmark } from './logos'
 
 const INK = '#0e1f33'
 const SKY = '#7fb3d5'
@@ -31,14 +31,8 @@ export default function Nav() {
         transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
       >
         {/* Logo */}
-        <a href="#" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none' }}>
-          <SqueegeeMark size={28} color={PAPER} accent={SKY} />
-          <span style={{
-            fontFamily: 'Manrope, sans-serif', fontWeight: 800,
-            fontSize: 15, letterSpacing: '-0.04em', color: PAPER, lineHeight: 1,
-          }}>
-            Clean<span style={{ color: SKY }}>Pro</span>
-          </span>
+        <a href="#" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
+          <SparkleWordmark textColor={PAPER} accent={SKY} size={15} />
         </a>
 
         {/* Desktop links */}

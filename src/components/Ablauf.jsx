@@ -63,8 +63,24 @@ export default function Ablauf() {
       </div>
 
       <style>{`
-        /* Desktop */
-        @media (min-width: 768px) {
+        /* Tablet: 2×2 grid */
+        @media (min-width: 768px) and (max-width: 1023px) {
+          .ablauf-container { padding: 24px 24px; }
+          .ablauf-card { padding: 36px; }
+          .ablauf-heading { font-size: clamp(28px, 3.5vw, 40px); }
+          .ablauf-header { margin-bottom: 32px; }
+          .steps-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+          .step-item { display: grid; grid-template-columns: 48px 1fr; gap: 14px; align-items: flex-start; padding-right: 0 !important; }
+          .step-num { width: 48px; height: 48px; border-radius: 99px; font-size: 18px; }
+          .step-title { font-size: 17px; margin-top: 0; }
+          .step-body { font-size: 13px; margin-top: 6px; }
+          .step-text { flex: 1; }
+          .ablauf-cta { margin-top: 36px; }
+          .steps-connector { display: none !important; }
+        }
+
+        /* Desktop: 4-column */
+        @media (min-width: 1024px) {
           .ablauf-container { padding: 40px 40px; }
           .ablauf-card { padding: 56px; }
           .ablauf-heading { font-size: clamp(32px, 3.5vw, 52px); }
