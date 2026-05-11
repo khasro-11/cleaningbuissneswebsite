@@ -77,12 +77,12 @@ export default function Kontakt() {
         EMAILJS_SERVICE,
         EMAILJS_TEMPLATE,
         {
-          vorname:   form.name,
-          nachname:  '',
-          email:     form.email,
-          telefon:   form.telefon  || '—',
-          leistung:  objekt,
-          nachricht: form.nachricht || '—',
+          from_name:    form.name,
+          from_email:   form.email,
+          from_phone:   form.telefon  || '—',
+          object_type:  objekt,
+          message:      form.nachricht || '—',
+          submitted_at: new Date().toLocaleString('de-DE', { dateStyle: 'short', timeStyle: 'short' }),
         },
         EMAILJS_KEY
       )
