@@ -144,7 +144,7 @@ export default function Kontakt() {
             viewport={viewport}
           >
             {!sent ? (
-              <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+              <form onSubmit={handleSubmit} className="kontakt-form-inner" style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
 
                 {/* Object type selector */}
                 <div>
@@ -156,6 +156,7 @@ export default function Kontakt() {
                       <button
                         key={o.id}
                         type="button"
+                        className="kontakt-tile"
                         onClick={() => setObjekt(o.id)}
                         style={{
                           padding: '12px 8px', borderRadius: 10, fontSize: 12, fontWeight: 700,
@@ -233,6 +234,7 @@ export default function Kontakt() {
                 <motion.button
                   type="submit"
                   disabled={sending}
+                  className="kontakt-submit"
                   style={{
                     padding: 16, marginTop: 6, background: INK, color: PAPER,
                     border: 'none', borderRadius: 12, fontWeight: 700, fontSize: 15,
@@ -334,20 +336,24 @@ export default function Kontakt() {
 
         /* Mobile: flex column with reordering */
         @media (max-width: 767px) {
-          .kontakt-outer { padding: 32px 12px 0 !important; }
+          .kontakt-outer { padding: 24px 12px 0 !important; }
           .kontakt-card {
             display: flex;
             flex-direction: column;
-            padding: 24px;
-            gap: 16px;
-            border-radius: 22px !important;
+            padding: 16px;
+            gap: 10px;
+            border-radius: 20px !important;
           }
           .kontakt-heading { order: 1; }
-          .kontakt-form    { order: 2; padding: 20px !important; }
-          .kontakt-info    { order: 3; }
-          .kontakt-h2 { font-size: 28px !important; }
-          .kontakt-subp { font-size: 14px !important; margin-top: 12px !important; }
-          .object-tiles { grid-template-columns: repeat(2, 1fr) !important; }
+          .kontakt-form    { order: 2; padding: 14px !important; }
+          .kontakt-info    { order: 3; padding: 16px !important; gap: 14px !important; }
+          .kontakt-h2 { font-size: 22px !important; }
+          .kontakt-subp { font-size: 12px !important; margin-top: 6px !important; }
+          .object-tiles { grid-template-columns: repeat(2, 1fr) !important; gap: 5px !important; }
+          .kontakt-tile { padding: 9px 6px !important; font-size: 11px !important; border-radius: 8px !important; gap: 4px !important; }
+          .kontakt-form-inner { gap: 10px !important; }
+          .kontakt-submit { padding: 12px !important; font-size: 13px !important; margin-top: 2px !important; }
+          .form-input { padding: 10px 12px !important; font-size: 13px !important; }
         }
       `}</style>
     </section>

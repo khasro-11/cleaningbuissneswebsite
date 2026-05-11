@@ -31,8 +31,9 @@ export default function Nav() {
         transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
       >
         {/* Logo */}
-        <a href="#" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
+        <a href="#" style={{ display: 'flex', flexDirection: 'column', textDecoration: 'none', gap: 1 }}>
           <SparkleWordmark textColor={PAPER} accent={SKY} size={15} />
+          <span style={{ color: 'rgba(245,247,248,0.55)', fontSize: 9, fontFamily: 'Manrope, sans-serif', fontWeight: 500, letterSpacing: '0.08em', textTransform: 'uppercase' }}>Reinigungsservice</span>
         </a>
 
         {/* Desktop links */}
