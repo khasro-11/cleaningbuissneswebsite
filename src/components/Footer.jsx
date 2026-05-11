@@ -8,10 +8,18 @@ const PAPER = '#f5f7f8'
 
 function LogoMark({ size = 20 }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 32 32">
-      <circle cx="16" cy="16" r="14" fill={PAPER} />
-      <path d="M16 4 a12 12 0 0 1 12 12 L16 16 Z" fill={SKY} />
-      <circle cx="16" cy="16" r="2.4" fill={INK} />
+    <svg width={size} height={size} viewBox="0 0 36 36" fill="none">
+      <rect width="36" height="36" rx="9" fill={INK} />
+      <path
+        d="M 25.27 11.54 A 10.5 10.5 0 1 0 25.27 24.46"
+        stroke={SKY}
+        strokeWidth="3.2"
+        strokeLinecap="round"
+      />
+      <path
+        d="M 26.5 12.3 L 27.1 13.9 L 28.7 14.5 L 27.1 15.1 L 26.5 16.7 L 25.9 15.1 L 24.3 14.5 L 25.9 13.9 Z"
+        fill={PAPER}
+      />
     </svg>
   )
 }
@@ -24,7 +32,10 @@ export default function Footer() {
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 16 }} className="footer-row">
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
             <LogoMark size={20} />
-            <span style={{ fontWeight: 700, fontSize: 14, color: INK }}>CleanPro <span style={{ color: SKY, fontWeight: 400 }}>Reinigungsservice</span></span>
+            <span style={{ fontWeight: 300, fontSize: 14, letterSpacing: '0.01em', color: 'rgba(14,31,51,0.7)' }}>
+              Clean<span style={{ fontWeight: 800, color: INK, letterSpacing: '-0.02em' }}>Pro</span>
+              <span style={{ fontWeight: 400, fontSize: 12, color: INK_SOFT, marginLeft: 6 }}>Reinigungsservice</span>
+            </span>
           </div>
           <div style={{ fontSize: 13, color: INK_SOFT }}>
             © 2026 · <a href="#" style={{ color: INK_SOFT, textDecoration: 'none' }}>Impressum</a> · <a href="#" style={{ color: INK_SOFT, textDecoration: 'none' }}>Datenschutz</a> · <a href="#" style={{ color: INK_SOFT, textDecoration: 'none' }}>AGB</a>

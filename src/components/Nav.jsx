@@ -5,12 +5,23 @@ const INK = '#0e1f33'
 const SKY = '#7fb3d5'
 const PAPER = '#f5f7f8'
 
-function LogoMark({ size = 26 }) {
+function LogoMark({ size = 26, bg = '#1f3a5f' }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 32 32">
-      <circle cx="16" cy="16" r="14" fill={PAPER} />
-      <path d="M16 4 a12 12 0 0 1 12 12 L16 16 Z" fill={SKY} />
-      <circle cx="16" cy="16" r="2.4" fill={INK} />
+    <svg width={size} height={size} viewBox="0 0 36 36" fill="none">
+      {/* Badge background */}
+      <rect width="36" height="36" rx="9" fill={bg} />
+      {/* C arc — center (17,18), r=10.5, opening ±38° on right */}
+      <path
+        d="M 25.27 11.54 A 10.5 10.5 0 1 0 25.27 24.46"
+        stroke={SKY}
+        strokeWidth="3.2"
+        strokeLinecap="round"
+      />
+      {/* 4-pointed sparkle near top of C opening */}
+      <path
+        d="M 26.5 12.3 L 27.1 13.9 L 28.7 14.5 L 27.1 15.1 L 26.5 16.7 L 25.9 15.1 L 24.3 14.5 L 25.9 13.9 Z"
+        fill={PAPER}
+      />
     </svg>
   )
 }
@@ -40,10 +51,10 @@ export default function Nav() {
         transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
       >
         {/* Logo */}
-        <a href="#" style={{ display: 'flex', alignItems: 'center', gap: 8, textDecoration: 'none' }}>
-          <LogoMark size={22} />
-          <span style={{ fontWeight: 700, fontSize: 15, letterSpacing: '-0.01em', color: PAPER }}>
-            CleanPro <span style={{ color: SKY, fontWeight: 400 }}>Reinigungsservice</span>
+        <a href="#" style={{ display: 'flex', alignItems: 'center', gap: 9, textDecoration: 'none' }}>
+          <LogoMark size={28} bg="#1f3a5f" />
+          <span style={{ fontWeight: 300, fontSize: 15, letterSpacing: '0.01em', color: 'rgba(245,247,248,0.85)' }}>
+            Clean<span style={{ fontWeight: 800, color: PAPER, letterSpacing: '-0.02em' }}>Pro</span>
           </span>
         </a>
 
