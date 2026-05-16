@@ -247,7 +247,7 @@ export default function Kontakt() {
                   whileTap={sending ? {} : { scale: 0.97 }}
                   transition={{ type: 'spring', stiffness: 400, damping: 20 }}
                 >
-                  {sending ? 'Wird gesendet…' : <>Angebot in 60 Sekunden <Icon name="arrow" size={16} color={PAPER} /></>}
+                  {sending ? 'Wird gesendet…' : <>Angebot erhalten <Icon name="arrow" size={16} color={PAPER} /></>}
                 </motion.button>
 
                 {error && (

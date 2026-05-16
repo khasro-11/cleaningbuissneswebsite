@@ -16,7 +16,7 @@ export default function Footer() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
             <SparkleWordmark textColor={INK} accent={SKY} size={14} />
             <div style={{ fontWeight: 600, fontSize: 10, letterSpacing: '0.14em', textTransform: 'uppercase', color: INK_SOFT, opacity: 0.7, fontFamily: 'Manrope, sans-serif' }}>
-              Reinigungsservice · Bönen
+              Gebäudeservice · Bönen
             </div>
           </div>
           <div style={{ fontSize: 13, color: INK_SOFT }}>

@@ -1,6 +1,7 @@
 import Nav from './components/Nav'
 import Hero from './components/Hero'
 import Services from './components/Services'
+import Galerie from './components/Galerie'
 import Ablauf from './components/Ablauf'
 import Vorteile from './components/Vorteile'
 import Kontakt from './components/Kontakt'
@@ -12,6 +13,7 @@ export default function App() {
       <Nav />
       <Hero />
       <Services />
+      <Galerie />
       <Ablauf />
       <Vorteile />
       <Kontakt />

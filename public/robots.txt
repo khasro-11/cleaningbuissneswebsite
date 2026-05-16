@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://cleanproreinigungsservice.com/sitemap.xml
+Sitemap: https://khello-gebaeudeservice.de/sitemap.xml

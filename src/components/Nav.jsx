@@ -33,7 +33,7 @@ export default function Nav() {
         {/* Logo */}
         <a href="#" style={{ display: 'flex', flexDirection: 'column', textDecoration: 'none', gap: 1 }}>
           <SparkleWordmark textColor={PAPER} accent={SKY} size={15} />
-          <span style={{ color: 'rgba(245,247,248,0.55)', fontSize: 9, fontFamily: 'Manrope, sans-serif', fontWeight: 500, letterSpacing: '0.08em', textTransform: 'uppercase' }}>Reinigungsservice</span>
+          <span style={{ color: 'rgba(245,247,248,0.55)', fontSize: 9, fontFamily: 'Manrope, sans-serif', fontWeight: 500, letterSpacing: '0.08em', textTransform: 'uppercase' }}>Gebäudeservice</span>
         </a>
 
         {/* Desktop links */}

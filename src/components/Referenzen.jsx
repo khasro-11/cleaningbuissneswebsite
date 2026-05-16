@@ -11,34 +11,9 @@ const Stars = () => (
   </div>
 )
 
-const testimonials = [
-  {
-    quote: '„CleanPro reinigt unser Büro seit über zwei Jahren. Das Team ist immer pünktlich, diskret und das Ergebnis übertrifft jedes Mal unsere Erwartungen. Absolut empfehlenswert!"',
-    name: 'Michael Kaufmann',
-    role: 'Geschäftsführer, TechBerlin GmbH',
-    avatar: 'MK',
-    color: '#19636e',
-    dark: false,
-  },
-  {
-    quote: '„Ich nutze CleanPro für die Wohnungsreinigung und bin restlos begeistert. Dieselbe Reinigungskraft jede Woche — das ist Gold wert. Meine Wohnung war noch nie so sauber!"',
-    name: 'Sarah Becker',
-    role: 'Privatkundin, München',
-    avatar: 'SB',
-    color: '#2a939f',
-    dark: true,
-  },
-  {
-    quote: '„Die Grundreinigung nach unserem Umbau war hervorragend. Das Team hat selbst die unmöglichsten Ecken blitzsauber gemacht. Preis-Leistung ist top!"',
-    name: 'Thomas Müller',
-    role: 'Immobilienmakler, Hamburg',
-    avatar: 'TM',
-    color: '#0d3a42',
-    dark: false,
-  },
-]
+const testimonials = []
 
-const logos = ['TechBerlin', 'ImmoPro', 'Gastro GmbH', 'KlinikCenter', 'EventHouse']
+const logos = []
 
 export default function Referenzen() {
   return (
@@ -46,12 +21,12 @@ export default function Referenzen() {
       <div className="max-w-6xl mx-auto px-6 lg:px-8">
 
         <motion.div className="text-center mb-16" variants={stagger} initial="hidden" whileInView="visible" viewport={viewport}>
-          <motion.span className="text-teal-600 text-sm font-semibold tracking-widest uppercase mb-3 block" variants={fadeUp}>Das sagen unsere Kunden</motion.span>
+          <motion.span className="text-teal-600 text-sm font-semibold tracking-widest uppercase mb-3 block" variants={fadeUp}>Khello Gebäudeservice</motion.span>
           <motion.h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-teal-950 tracking-tighter2 mb-4" variants={fadeUp}>
-            Bewertungen & Referenzen
+            Inhabergeführt aus Bönen
           </motion.h2>
           <motion.p className="text-teal-700/70 text-lg leading-relaxed2 max-w-xl mx-auto" variants={fadeUp}>
-            Vertrauen, das durch Qualität entsteht.
+            Persönlicher Ansprechpartner, zuverlässige Arbeit, transparente Preise — für Bönen und Umgebung.
           </motion.p>
         </motion.div>
 
@@ -79,14 +54,9 @@ export default function Referenzen() {
           ))}
         </motion.div>
 
-        {/* Trust logos */}
+        {/* Honest service promise */}
         <motion.div className="mt-16 pt-12 border-t border-teal-100" initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ duration: 0.6 }} viewport={viewport}>
-          <p className="text-center text-teal-600/50 text-sm font-medium tracking-wider uppercase mb-8">Vertrauen von über 500 Unternehmen & Privatpersonen</p>
-          <motion.div className="flex flex-wrap items-center justify-center gap-8 lg:gap-14 opacity-40" variants={stagger} initial="hidden" whileInView="visible" viewport={viewport}>
-            {logos.map(l => (
-              <motion.div key={l} className="text-teal-950 font-display font-bold text-xl tracking-tight" variants={fadeUp}>{l}</motion.div>
-            ))}
-          </motion.div>
+          <p className="text-center text-teal-600/50 text-sm font-medium tracking-wider uppercase mb-8">Kostenlose, unverbindliche Besichtigung vor Ort</p>
         </motion.div>
       </div>
     </section>

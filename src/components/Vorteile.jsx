@@ -27,7 +27,7 @@ const features = [
   { icon: 'clock',  t: 'Pünktlich',         s: '±10 Minuten oder Sie zahlen nichts.' },
   { icon: 'check',  t: 'Festes Team',       s: 'Keine Subunternehmer, keine wechselnden Gesichter.' },
   { icon: 'phone',  t: 'Direktdraht',       s: 'Eine Nummer. Eine Person. Antwort in < 4h.' },
-  { icon: 'star',   t: '4,9 / 5',           s: '180+ Bewertungen auf Google.' },
+  { icon: 'star',   t: 'Inhabergeführt',     s: 'Direkt mit dem Inhaber — kein Callcenter, kein Zwischenhändler.' },
 ]
 
 export default function Vorteile() {
