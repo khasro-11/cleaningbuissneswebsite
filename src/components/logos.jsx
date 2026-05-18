@@ -171,7 +171,7 @@ export function SparkleMark({
   );
 }
 
-// Inline wordmark for nav: Khello ✦
+// Inline wordmark for nav: Nordiva Clean ✦
 export function SparkleWordmark({
   textColor = C.paper,
   accent = C.sky,
@@ -191,7 +191,7 @@ export function SparkleWordmark({
         gap: size * 0.3,
       }}
     >
-      <span>Khello</span>
+      <span>Nordiva Clean</span>
     </div>
   );
 }
