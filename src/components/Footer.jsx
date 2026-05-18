@@ -20,7 +20,7 @@ export default function Footer() {
             </div>
           </div>
           <div style={{ fontSize: 13, color: INK_SOFT }}>
-            © 2026 · <a href="#" style={{ color: INK_SOFT, textDecoration: 'none' }}>Impressum</a> · <a href="#" style={{ color: INK_SOFT, textDecoration: 'none' }}>Datenschutz</a> · <a href="#" style={{ color: INK_SOFT, textDecoration: 'none' }}>AGB</a>
+            © 2026 · <a href="/impressum.html" style={{ color: INK_SOFT, textDecoration: 'none' }}>Impressum</a> · <a href="/datenschutz.html" style={{ color: INK_SOFT, textDecoration: 'none' }}>Datenschutz</a> · <a href="#" style={{ color: INK_SOFT, textDecoration: 'none' }}>AGB</a>
           </div>
         </div>
       </div>
