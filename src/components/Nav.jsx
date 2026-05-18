@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { SparkleWordmark } from './logos'
+import { SkylineWordmark } from './logos'
 
 const INK = '#0e1f33'
 const SKY = '#7fb3d5'
@@ -31,9 +31,8 @@ export default function Nav() {
         transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
       >
         {/* Logo */}
-        <a href="#" style={{ display: 'flex', flexDirection: 'column', textDecoration: 'none', gap: 1 }}>
-          <SparkleWordmark textColor={PAPER} accent={SKY} size={15} />
-          <span style={{ color: 'rgba(245,247,248,0.55)', fontSize: 9, fontFamily: 'Manrope, sans-serif', fontWeight: 500, letterSpacing: '0.08em', textTransform: 'uppercase' }}>Gebäudeservice</span>
+        <a href="#" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
+          <SkylineWordmark textColor={PAPER} accent={SKY} size={28} />
         </a>
 
         {/* Desktop links */}

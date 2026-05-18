@@ -1,8 +1,37 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 78">
-  <text x="0" y="62" font-family="Manrope, system-ui, sans-serif" font-weight="800"
-        font-size="72" letter-spacing="-2.9" fill="#0e1f33">Clean</text>
-  <path d="M186 28 C 186 36, 188 40, 198 42 C 188 44, 186 48, 186 56
-           C 186 48, 184 44, 174 42 C 184 40, 186 36, 186 28 Z" fill="#7fb3d5"/>
-  <text x="208" y="62" font-family="Manrope, system-ui, sans-serif" font-weight="800"
-        font-size="72" letter-spacing="-2.9" fill="#0e1f33">Pro</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 340 78">
+  <!-- Skyline mark scaled to 74×74, translate(0,2) scale(0.37) -->
+  <g transform="translate(0, 2) scale(0.37)">
+    <!-- Side towers -->
+    <rect x="30" y="80" width="42" height="100" rx="2" fill="#0e1f33"/>
+    <rect x="128" y="80" width="42" height="100" rx="2" fill="#0e1f33"/>
+    <!-- Window strips left -->
+    <rect x="34" y="92"  width="34" height="3" fill="#ffffff" opacity="0.45"/>
+    <rect x="34" y="104" width="34" height="3" fill="#ffffff" opacity="0.45"/>
+    <rect x="34" y="116" width="34" height="3" fill="#ffffff" opacity="0.45"/>
+    <rect x="34" y="128" width="34" height="3" fill="#ffffff" opacity="0.45"/>
+    <rect x="34" y="140" width="34" height="3" fill="#ffffff" opacity="0.45"/>
+    <rect x="34" y="152" width="34" height="3" fill="#ffffff" opacity="0.45"/>
+    <rect x="34" y="164" width="34" height="3" fill="#ffffff" opacity="0.45"/>
+    <!-- Window strips right -->
+    <rect x="132" y="92"  width="34" height="3" fill="#ffffff" opacity="0.45"/>
+    <rect x="132" y="104" width="34" height="3" fill="#ffffff" opacity="0.45"/>
+    <rect x="132" y="116" width="34" height="3" fill="#ffffff" opacity="0.45"/>
+    <rect x="132" y="128" width="34" height="3" fill="#ffffff" opacity="0.45"/>
+    <rect x="132" y="140" width="34" height="3" fill="#ffffff" opacity="0.45"/>
+    <rect x="132" y="152" width="34" height="3" fill="#ffffff" opacity="0.45"/>
+    <rect x="132" y="164" width="34" height="3" fill="#ffffff" opacity="0.45"/>
+    <!-- Center tower -->
+    <rect x="78" y="40" width="44" height="140" rx="2" fill="#7fb3d5"/>
+    <rect x="116" y="44" width="3" height="124" fill="#ffffff" opacity="0.35"/>
+    <!-- Sparkle -->
+    <g transform="translate(100, 22)">
+      <path d="M0 -10 L1.6 -1.6 L10 0 L1.6 1.6 L0 10 L-1.6 1.6 L-10 0 L-1.6 -1.6 Z" fill="#7fb3d5"/>
+    </g>
+    <!-- Ground line -->
+    <rect x="14" y="180" width="172" height="3" rx="1.5" fill="#0e1f33"/>
+  </g>
+  <!-- Wordmark -->
+  <text x="88" y="38" font-family="Manrope, system-ui, sans-serif" font-weight="800" font-size="28" letter-spacing="-1" fill="#0e1f33">Nordiva<tspan fill="#1f3a5f" font-weight="600"> Clean</tspan></text>
+  <!-- Subtitle -->
+  <text x="89" y="57" font-family="Manrope, system-ui, sans-serif" font-weight="600" font-size="9.5" letter-spacing="2" fill="#0e1f33" opacity="0.5">GEBÄUDESERVICE · BÖNEN</text>
 </svg>

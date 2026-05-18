@@ -1,7 +1,6 @@
-// All 6 Clean Pro logo mark concepts.
-// Import whichever you want in Nav.jsx / Footer.jsx.
-// Nav usage (dark bg):  <SqueegeeMark size={28} color="#f5f7f8" accent="#7fb3d5" />
-// Footer usage (light): <SqueegeeMark size={20} color="#0e1f33" accent="#7fb3d5" />
+// Logo mark concepts for Nordiva Clean.
+// Nav usage (dark bg):  <SkylineMinimalMark size={28} color="#f5f7f8" accent="#7fb3d5" />
+// Footer usage (light): <SkylineMinimalMark size={22} color="#0e1f33" accent="#7fb3d5" />
 
 const C = {
   ink: "#0e1f33",
@@ -224,6 +223,89 @@ export function DropletMark({ size = 96, color = C.sky, bg = null }) {
         />
       </g>
     </svg>
+  );
+}
+
+// ─── 07 · SKYLINE MINIMAL ─────────────────────────────────────────────────────
+// Two navy towers flanking a taller sky-blue center tower with a sparkle on top.
+// Modern & professional — represents Gebäudeservice. Primary logo mark.
+export function SkylineMinimalMark({ size = 96, color = C.ink, accent = C.sky, bg = null }) {
+  const strips = [92, 104, 116, 128, 140, 152, 164];
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox="0 0 200 200"
+      fill="none"
+      style={{ display: "block", flexShrink: 0 }}
+    >
+      {bg && <rect width="200" height="200" rx="32" fill={bg} />}
+      {/* Side towers */}
+      <rect x="30" y="80" width="42" height="100" rx="2" fill={color} />
+      <rect x="128" y="80" width="42" height="100" rx="2" fill={color} />
+      {/* Window strips */}
+      {strips.map((y) => (
+        <g key={y}>
+          <rect x="34" y={y} width="34" height="3" fill="#ffffff" opacity="0.45" />
+          <rect x="132" y={y} width="34" height="3" fill="#ffffff" opacity="0.45" />
+        </g>
+      ))}
+      {/* Center accent tower */}
+      <rect x="78" y="40" width="44" height="140" rx="2" fill={accent} />
+      <rect x="116" y="44" width="3" height="124" fill="#ffffff" opacity="0.35" />
+      {/* Sparkle on top */}
+      <g transform="translate(100 22)">
+        <path
+          d="M0 -10 L1.6 -1.6 L10 0 L1.6 1.6 L0 10 L-1.6 1.6 L-10 0 L-1.6 -1.6 Z"
+          fill={accent}
+        />
+      </g>
+      {/* Ground line */}
+      <rect x="14" y="180" width="172" height="3" rx="1.5" fill={color} />
+    </svg>
+  );
+}
+
+// Paired nav/footer wordmark: skyline mark + "Nordiva Clean" + subtitle
+export function SkylineWordmark({ textColor = C.paper, accent = C.sky, size = 28 }) {
+  return (
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        gap: Math.round(size * 0.38),
+        lineHeight: 1,
+      }}
+    >
+      <SkylineMinimalMark size={size} color={textColor} accent={accent} />
+      <div style={{ fontFamily: "Manrope, sans-serif" }}>
+        <div
+          style={{
+            fontSize: Math.round(size * 0.52),
+            fontWeight: 800,
+            letterSpacing: "-0.035em",
+            color: textColor,
+            lineHeight: 1,
+          }}
+        >
+          Nordiva
+          <span style={{ color: accent, fontWeight: 600 }}> Clean</span>
+        </div>
+        <div
+          style={{
+            fontSize: Math.round(size * 0.28),
+            fontWeight: 600,
+            letterSpacing: "0.12em",
+            textTransform: "uppercase",
+            color: textColor,
+            opacity: 0.5,
+            marginTop: 3,
+          }}
+        >
+          Gebäudeservice
+        </div>
+      </div>
+    </div>
   );
 }
 

@@ -1,7 +1,28 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96">
   <rect width="96" height="96" rx="20" fill="#0e1f33"/>
-  <path d="M40 14 C 40 32, 44 40, 64 44 C 44 48, 40 56, 40 74
-           C 40 56, 36 48, 16 44 C 36 40, 40 32, 40 14 Z" fill="#ffffff"/>
-  <path d="M72 60 C 72 68, 74 72, 84 74 C 74 76, 72 80, 72 88
-           C 72 80, 70 76, 60 74 C 70 72, 72 68, 72 60 Z" fill="#7fb3d5"/>
+  <!-- Skyline mark: translate(8,8) scale(0.4) fits 200×200 mark into ~80×80 -->
+  <g transform="translate(8, 8) scale(0.4)">
+    <rect x="30" y="80" width="42" height="100" rx="2" fill="#ffffff"/>
+    <rect x="128" y="80" width="42" height="100" rx="2" fill="#ffffff"/>
+    <rect x="34" y="92"  width="34" height="3" fill="#0e1f33" opacity="0.4"/>
+    <rect x="34" y="104" width="34" height="3" fill="#0e1f33" opacity="0.4"/>
+    <rect x="34" y="116" width="34" height="3" fill="#0e1f33" opacity="0.4"/>
+    <rect x="34" y="128" width="34" height="3" fill="#0e1f33" opacity="0.4"/>
+    <rect x="34" y="140" width="34" height="3" fill="#0e1f33" opacity="0.4"/>
+    <rect x="34" y="152" width="34" height="3" fill="#0e1f33" opacity="0.4"/>
+    <rect x="34" y="164" width="34" height="3" fill="#0e1f33" opacity="0.4"/>
+    <rect x="132" y="92"  width="34" height="3" fill="#0e1f33" opacity="0.4"/>
+    <rect x="132" y="104" width="34" height="3" fill="#0e1f33" opacity="0.4"/>
+    <rect x="132" y="116" width="34" height="3" fill="#0e1f33" opacity="0.4"/>
+    <rect x="132" y="128" width="34" height="3" fill="#0e1f33" opacity="0.4"/>
+    <rect x="132" y="140" width="34" height="3" fill="#0e1f33" opacity="0.4"/>
+    <rect x="132" y="152" width="34" height="3" fill="#0e1f33" opacity="0.4"/>
+    <rect x="132" y="164" width="34" height="3" fill="#0e1f33" opacity="0.4"/>
+    <rect x="78" y="40" width="44" height="140" rx="2" fill="#7fb3d5"/>
+    <rect x="116" y="44" width="3" height="124" fill="#ffffff" opacity="0.35"/>
+    <g transform="translate(100, 22)">
+      <path d="M0 -10 L1.6 -1.6 L10 0 L1.6 1.6 L0 10 L-1.6 1.6 L-10 0 L-1.6 -1.6 Z" fill="#7fb3d5"/>
+    </g>
+    <rect x="14" y="180" width="172" height="3" rx="1.5" fill="#ffffff"/>
+  </g>
 </svg>
