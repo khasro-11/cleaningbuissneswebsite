@@ -167,8 +167,8 @@ export default function Hero() {
                       gap: 8,
                     }}
                   >
-                    <Icon name="phone" size={14} color={INK} /> +49 155 1143
-                    5755
+                    <Icon name="phone" size={14} color={INK} /> +49 155 1005
+                    7038
                   </a>
                 </div>
               </div>
@@ -480,7 +480,7 @@ export default function Hero() {
                 gap: 8,
               }}
             >
-              <Icon name="phone" size={14} color={INK} /> +49 155 1005 7038
+              <Icon name="phone" size={14} color={INK} /> +49 155 1143 5755
             </a>
           </div>
         </motion.div>
