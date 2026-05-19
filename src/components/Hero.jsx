@@ -152,7 +152,7 @@ export default function Hero() {
                     <Icon name="arrow" size={14} color={PAPER} />
                   </motion.a>
                   <a
-                    href="tel:+4915511435755"
+                    href="tel:+4915510057038"
                     style={{
                       background: "transparent",
                       color: INK,
@@ -464,7 +464,7 @@ export default function Hero() {
               Angebot erhalten <Icon name="arrow" size={14} color={PAPER} />
             </a>
             <a
-              href="tel:+4915511435755"
+              href="tel:+4915510057038"
               style={{
                 background: "transparent",
                 color: INK,
@@ -480,7 +480,7 @@ export default function Hero() {
                 gap: 8,
               }}
             >
-              <Icon name="phone" size={14} color={INK} /> +49 155 1143 5755
+              <Icon name="phone" size={14} color={INK} /> +49 155 1005 7038
             </a>
           </div>
         </motion.div>
