@@ -6,7 +6,8 @@ import './index.css'
 const rootEl = document.getElementById('root')
 const app = <React.StrictMode><App /></React.StrictMode>
 
-if (rootEl.hasChildNodes()) {
+// firstElementChild is non-null only when SSR pre-rendered HTML was injected
+if (rootEl.firstElementChild) {
   hydrateRoot(rootEl, app)
 } else {
   createRoot(rootEl).render(app)
